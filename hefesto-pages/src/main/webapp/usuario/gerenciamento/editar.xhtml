@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" 
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:c="http://java.sun.com/jstl/core">
+
+
+<ui:composition template="/template/interface-nova/template.xhtml">
+
+	<ui:define name="header">
+	</ui:define>
+
+	<ui:define name="conteudo">
+
+		<div id="loader" class="load-bar" style="display: none">
+			<div class="bar"></div>
+			<div class="bar"></div>
+			<div class="bar"></div>
+		</div>
+
+		<h6 style="margin: 20px 0px 0px 10px">
+			<a href="/hefesto/index.jsf"
+				style="color: blue !important">Início</a> / <a href="/hefesto/usuario/gerenciamento/consultar" style="color:blue !important">Gerenciar Usuários</a> / Editar Usuário
+		</h6>
+
+		<div class="ui-g-12">
+			<div class="ui-g-3"></div>
+			<div class="login-box w3-card ui-g-6" style="margin-top: 30px;">
+				<div class="box login-box-body">
+					<h:form>
+						<p:inputText styleClass="" id="hidden-element" style="visibility:hidden"/>
+						<legend style="text-align: center;">Editar Usuário</legend>
+						<div class="form-group has-feedback ui-g-12">
+	    					<label for="nome" class="">Nome:</label>
+							<h:inputText styleClass="form-control" disabled="true" id="nome" value="#{editarUsuarioFormBean.editarUsuario.nomePessoa}"/>
+						</div>
+						<div class="form-group has-feedback ui-g-12">
+	    					<label for="numDocumento" class="">Numero do Documento</label>
+					   		<h:inputText styleClass="form-control" disabled="true" id="numDocumento" value="#{editarUsuarioFormBean.editarUsuario.numDocumento}"/>
+						</div>
+						<div class="form-group has-feedback ui-g-12">
+	    					<label for="login" class="">Login</label>	
+				     		<h:inputText styleClass="form-control" id="login" value="#{editarUsuarioFormBean.editarUsuario.login}" />
+						</div>
+						<div class="form-group has-feedback ui-g-12">
+							<label for="senha" class="">Senha</label>
+							<h:inputSecret styleClass="form-control" id="senha" value="#{editarUsuarioFormBean.editarUsuario.senha}" />
+						</div>
+						<div class="form-group has-feedback ui-g-12">
+							<label for="senhaConf" class="">Confirmação de Senha</label>
+							<h:inputSecret styleClass="form-control" id="senhaConf" value="#{editarUsuarioFormBean.editarUsuario.senhaConfirmacao}"/>
+						</div>
+						<div class="form-group has-feedback ui-g-12">   
+							<label for="idPredio" class="">Tipo de Usuario: </label>
+							<h:selectOneMenu value="#{editarUsuarioFormBean.editarUsuario.idPapelUsuario}">
+								<f:selectItem itemLabel="Selecione um papel de usuario" itemValue="" />
+								<f:selectItems value="#{listarPapeisUsuarioFormBean.papeis}" var="papel"
+								itemLabel="#{papel.nome}" itemValue="#{papel.id}"/>
+							</h:selectOneMenu>
+							<br />
+						</div>	
+						<b:commandButton value="Editar" look="success" icon="check" action="#{editarUsuarioFormBean.editar}" />
+					</h:form>
+				</div>
+			</div>
+		</div>
+
+
+	</ui:define>
+
+</ui:composition>
+</html>

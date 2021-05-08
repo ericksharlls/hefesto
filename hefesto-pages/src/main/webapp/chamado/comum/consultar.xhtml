@@ -1,0 +1,263 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" 
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:sec="http://www.springframework.org/security/tags">
+
+<ui:composition template="/template/interface-nova/template.xhtml">
+
+	<ui:define name="header">
+		<title>Consulta de Chamados</title>
+	</ui:define>
+
+	<ui:define name="conteudo">
+
+		<div id="loader" class="load-bar" style="display: none">
+			<div class="bar"></div>
+			<div class="bar"></div>
+			<div class="bar"></div>
+		</div>
+
+		<h6 style="margin: 20px 0px 0px 10px">
+			<a href="/hefesto/index.jsf"
+				style="color: blue !important">Início</a> / <a href="/hefesto/chamado/comum/consultar" style="color:blue !important">Chamados</a>  / Consultar
+			Chamados
+		</h6>
+
+		<div class="ui-g-12">
+			<div class="ui-g-2"></div>
+			<div class="login-box w3-card ui-g-8" style="margin-top: 30px;">
+				<div class="box login-box-body">
+					<h:form id="consultarChamadoForm">
+						<legend style="text-align: center;">Consultar Chamados</legend>
+
+						<p:dialog header="Adicionar Comentario"
+							widgetVar="dialogComentario" modal="true" height="300"
+							width="400" resizable="false">
+							<p:outputPanel id="comentarioDetalhes"
+								style="margin-left:23%;margin-top:15%">
+								<h:panelGrid columns="1" cellpadding="5">
+									<div id="boxComentario">
+										<h:outputLabel for="comentario"
+											value="Adicione um comentário:" />
+										<b:inputTextarea id="comentario"
+											value="#{consultarChamadoFormBean.chamadoModelSelecionado.comentario}" />
+									</div>
+									<f:facet name="footer">
+										<b:commandButton value="Confirmar" look="success" icon="check"
+											style="margin-left:40px"
+											action="#{consultarChamadoFormBean.adicionarComentario}" />
+									</f:facet>
+
+								</h:panelGrid>
+							</p:outputPanel>
+						</p:dialog>
+
+						<div class="form-group has-feedback ui-g-12">
+							<b:inputText id="codigo" label="Código: "
+								large-screen='two-thirds' placeholder="Insira o código"
+								value="#{consultarChamadoFormBean.consultarChamado.codigo}">
+								<f:facet name="prepend">
+									<b:button look="default" iconAwesome="key" />
+								</f:facet>
+							</b:inputText>
+							<br />
+						</div>
+
+						<div class="form-group has-feedback ui-g-12">
+							
+							<div class="form-group has-feedback ui-g-12">
+								<h:outputLabel value="Tipo de Serviço Pai: " for="tipoServicopai" />
+								<br />
+								<p:selectOneMenu id="tipoServicopai" styleClass="" value="#{popularComboTipoServicoFormBean.idTipoServicoPai}">
+									<f:selectItem itemLabel="Selecione um Tipo de Serviço Pai" itemValue="0" />
+									<f:selectItems value="#{popularComboTipoServicoFormBean.retornaTiposServicoPai()}" var="ts"
+													itemLabel="#{ts.nome}"
+													itemValue="#{ts.id}"/>
+													
+									<p:ajax event="change" listener="#{popularComboTipoServicoFormBean.retornaTiposServicoFilho()}" update="tipoServico" />  
+									
+								</p:selectOneMenu>
+							</div>
+							
+							<div class="form-group has-feedback ui-g-12">
+								<h:outputLabel value="Tipo de Serviço: " for="tipoServico" />
+								<br />
+								<p:selectOneMenu id="tipoServico" value="#{consultarChamadoFormBean.consultarChamado.idTipoServico}">
+									<f:selectItem itemLabel="Selecione um Tipo de Serviço" itemValue="0" />
+									<f:selectItems value="#{popularComboTipoServicoFormBean.tiposServicoFilho}" var="ts"
+													itemLabel="#{ts.nome}"
+													itemValue="#{ts.id}"/>
+								</p:selectOneMenu>
+							</div>
+							
+							
+							<br />
+						</div>
+
+						<div class="form-group has-feedback ui-g-12">
+							<h:outputLabel value="Solicitante: " for="solicitante"
+								styleClass="labels-form" />
+							<br />
+							<p:autoComplete id="solicitante"
+								value="#{consultarChamadoFormBean.solicitante}"
+								completeMethod="#{consultarChamadoFormBean.completePessoas}"
+								var="pessoa" size="55" itemLabel="#{pessoa.nome}" itemValue="#{pessoa}"
+								converter="#{pessoaConverter}" cols="23">
+								<p:column>
+									<h:outputText value="#{pessoa.nome}" />
+								</p:column>
+							</p:autoComplete>
+							<br />
+						</div>
+
+						<div class="form-group has-feedback ui-g-12">
+							<h:outputLabel value="Status:" for="status"
+								styleClass="labels-form" />
+							<br />
+							<h:selectOneMenu
+								value="#{consultarChamadoFormBean.consultarChamado.idStatus}">
+								<f:selectItem itemLabel="Todos" itemValue="0" />
+								<f:selectItems
+									value="#{popularComboStatusFormBean.retornaStatus()}"
+									var="status" itemLabel="#{status.nome}"
+									itemValue="#{status.id}" />
+							</h:selectOneMenu>
+							<br />
+						</div>
+
+						<div class="form-group has-feedback ui-g-12">
+							<h:outputLabel value="Setor: " for="setor" />
+							<br />
+							<p:autoComplete id="setor"
+								value="#{consultarChamadoFormBean.setor}"
+								completeMethod="#{consultarChamadoFormBean.completeSetores}"
+								var="setor" size="55" itemLabel="#{setor.nome}"
+								itemValue="#{setor}" converter="#{setorConverter}" cols="23"
+								scrollable="true" style="width: 500px;" scrollHeight="350"
+								appendTo="@this">
+								<p:column>
+									<h:outputText value="(#{setor.codigo}) " />
+									<h:outputText value="#{setor.descricao}" />
+								</p:column>
+							</p:autoComplete>
+							<br />
+						</div>
+
+						<br />
+						<br />
+						<b:commandButton value="Consultar"
+							action="#{consultarChamadoFormBean.consultar}" icon="search"
+							look="success" style="margin-left:23px" />
+						<br />
+						<br />
+
+						<p:dataTable id="chamadoTable" paginator="true" rows="10"
+							lazy="true" paginatorAlwaysVisible="false"
+							paginatorPosition="bottom" editable="true" var="chamado"
+							value="#{consultarChamadoFormBean.lazyChamado}"
+							emptyMessage="Nenhum Chamado Encontrado">
+
+							<p:ajax event="rowEdit"
+								listener="#{consultarChamadoFormBean.onRowEdit}"
+								update="chamadoTable" />
+							<p:ajax event="rowEditCancel" />
+
+
+							<f:facet name="header">
+								Lista de Chamados
+							</f:facet>
+							<p:column headerText="Código" class="data-table-align-text" style="width:120px">
+								<h:outputText value="#{chamado.codigo}" />
+							</p:column>
+							<p:column headerText="Setor" class="data-table-align-text" >
+								<h:outputText value="#{chamado.setor}"/>
+							</p:column>
+							<p:column headerText="Tipo de Serviço" class="data-table-align-text">
+								<h:outputText value="#{chamado.tipoServico}" />
+							</p:column>
+							<p:column headerText="Solicitante" class="data-table-align-text">
+								<h:outputText value="#{chamado.solicitante}" />
+							</p:column>
+							<c:if test="#{consultarChamadoFormBean.caminhoConsultar}">
+								<p:column headerText="Status" style="width:150px" class="data-table-align-text">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{chamado.status}" />
+										</f:facet>
+										<f:facet name="input">
+											<b:selectOneMenu value="#{chamado.idStatus}" style="color:black">
+												<f:selectItems
+													value="#{popularComboStatusFormBean.retornaStatus()}"
+													var="status" itemLabel="#{status.nome}"
+													itemValue="#{status.id}" />
+											</b:selectOneMenu>
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+							
+							<p:column headerText="Alterar Status" style="width:70px">
+								<p:rowEditor style="margin-left:40%"></p:rowEditor>
+							</p:column>
+							</c:if>
+							<p:column headerText="Operações" style="width:170px;padding-left: 17px;">
+								<div>
+									<c:if test="#{consultarChamadoFormBean.caminhoConsultar}">
+										<sec:authorize access="hasAnyRole('GESTOR_SETOR','USUARIO')">
+											<h:outputLink style="margin-right: 3px"
+												value="#{facesContext.externalContext.requestContextPath}/chamado/atendimento/atualizar/#{chamado.id}">
+												<b:button iconAwesome="edit" look="primary" tooltip="Editar Chamado"/>
+											</h:outputLink>
+										</sec:authorize>
+										<h:outputLink style="margin-right: 52px" value="#{facesContext.externalContext.requestContextPath}/chamado/comum/historico/#{chamado.id}">
+											<b:button iconAwesome="search" look="warning" tooltip="Ver Histórico"/>
+										</h:outputLink>
+
+										<sec:authorize access="hasAnyRole('GESTOR_SETOR','USUARIO')">
+											<p:commandLink id="linkComentario" 
+												update=":consultarChamadoForm:comentarioDetalhes"
+												oncomplete="PF('dialogComentario').show();"
+												action="#{consultarChamadoFormBean.setChamadoModelSelecionado(chamado)}"
+												style="margin-right:4px;margin-left:-49px;">
+												<b:button iconAwesome="comments" look="success" tooltip="Adicionar Comentário"/>
+											</p:commandLink>
+										</sec:authorize>
+									</c:if>
+								</div>
+								<c:if test="#{consultarChamadoFormBean.caminhoFinalizar}">
+									<h:outputLink class="icones-operacoes-single" 
+										value="#{facesContext.externalContext.requestContextPath}/chamado/atendimento/finalizar/#{chamado.id}">
+											<b:button iconAwesome="check" look="success" tooltip="Finalizar Chamado"/>
+										</h:outputLink>
+									<br />
+								</c:if>
+
+							</p:column>
+						</p:dataTable>
+
+						<br />
+						<div class="row">
+							<p:spacer height="10" />
+							<div class="col-xs-12">
+								<b:commandButton
+									action="#{consultarChamadoFormBean.mudarStatus}" look="success"
+									large-screen="one-third" icon="check"
+									value="Gravar alterações de status" id="gravarAlteracoes" />
+								<br /> <br /> <br />
+							</div>
+						</div>
+					</h:form>
+				</div>
+				<!-- /.login-box-body -->
+			</div>
+		</div>
+
+	</ui:define>
+
+</ui:composition>
+</html>

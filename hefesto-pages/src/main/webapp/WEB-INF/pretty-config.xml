@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pretty-config
+	xmlns="http://ocpsoft.org/schema/rewrite-config-prettyfaces"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://ocpsoft.org/schema/rewrite-config-prettyfaces
+                      http://ocpsoft.org/xml/ns/prettyfaces/rewrite-config-prettyfaces.xsd">
+
+
+
+	<!-- ##################### LINKS DA IMPORTAÇÃO ########################## -->
+	
+
+	<url-mapping id="importarSetorPage">
+		<pattern value="/admin/importacao/importarSetor" />
+		<view-id value="/admin/importacao/importarSetor.xhtml" />
+	</url-mapping>
+	
+	<url-mapping id="importarPessoaPage">
+		<pattern value="/admin/importacao/importarPessoa" />
+		<view-id value="/admin/importacao/importarPessoa.xhtml" />
+	</url-mapping>
+	
+	<url-mapping id="importarLocalizacoesPessoaPage">
+		<pattern value="/admin/importacao/importarLocalizacoesPessoa" />
+		<view-id value="/admin/importacao/importarLocalizacoesPessoa.xhtml" />
+	</url-mapping>
+	
+	
+	<!-- ##################### LINKS DO CHAMADO ########################## -->
+	
+	
+	<url-mapping id="consultarChamadoPage">
+		<pattern value="/chamado/comum/consultar" />
+		<view-id value="/chamado/comum/consultar.xhtml" />
+		<action>#{consultarChamadoFormBean.setOperacaoAtual("CONSULTAR_CHAMADOS")}</action>
+	</url-mapping>
+	
+	<url-mapping id="finalizarChamadoPage">
+		<pattern value="/chamado/atendimento/finalizar" />
+		<view-id value="/chamado/comum/consultar.xhtml" />
+		<action onPostback="false">#{consultarChamadoFormBean.setOperacaoAtual("FINALIZAR_CHAMADOS")}</action>
+	</url-mapping>
+	
+	<url-mapping id="cadastrarChamadoPage">
+		<pattern value="/chamado/atendimento/cadastrar" />
+		<view-id value="/chamado/atendimento/cadastrar.xhtml" />
+	</url-mapping>
+
+	<url-mapping id="atualizarChamadoPage">
+		<pattern value="/chamado/atendimento/atualizar/#{consultarChamadoFormBean.chamadoModelSelecionado.id}" />
+		<view-id value="/chamado/atendimento/editar.xhtml" />
+		<action onPostback="false">#{consultarChamadoFormBean.obter}</action>
+	</url-mapping>
+
+	<url-mapping id="finalizarChamadoSelecionadoPage">
+		<pattern value="/chamado/atendimento/finalizar/#{finalizarChamadoFormBean.chamadoModelSelecionado.id}" />
+		<view-id value="/chamado/atendimento/finalizar.xhtml" />
+		<action onPostback="false">#{finalizarChamadoFormBean.obter}</action>
+	</url-mapping>
+
+	<url-mapping id="consultarHistoricoChamadoPage">
+		<pattern value="/chamado/comum/historico/#{consultarHistoricoChamadoFormBean.idChamadoSelecionado}" />
+		<view-id value="/chamado/comum/historico.xhtml" />
+		<action onPostback="false">#{consultarHistoricoChamadoFormBean.obterHistorico}</action>
+	</url-mapping>
+	
+	
+	<!-- ##################### LINKS DA PESSOA ########################## -->
+	
+
+	<url-mapping id="cadastrarPessoaPage">
+		<pattern value="/admin/pessoa/cadastrar" />
+		<view-id value="/admin/pessoa/cadastrar.xhtml" />
+	</url-mapping>
+	
+	<url-mapping id="consultarPessoaPage">
+		<pattern value="/admin/pessoa/consultar" />
+		<view-id value="/admin/pessoa/consultar.xhtml" />
+	</url-mapping>
+	
+	<url-mapping id="atualizarPessoaPage">
+		<pattern value="/admin/pessoa/atualizar/#{consultarPessoaFormBean.pessoaModelSelecionado.id}" />
+		<view-id value="/admin/pessoa/editar.xhtml" />
+		<action onPostback="false">#{consultarPessoaFormBean.obter}</action>
+	</url-mapping>
+	
+	<url-mapping id="atualizarDadosPessoaisPage">
+		<pattern value="/usuario/comum/editarDadosPessoais/#{atualizarDadosPessoaisFormBean.obterPessoa.id}" />
+		<view-id value="/usuario/comum/editarDadosPessoais.xhtml" />
+		<action onPostback="false">#{atualizarDadosPessoaisFormBean.obter}</action>
+	</url-mapping>
+	
+	
+	<!-- ##################### LINKS DO TIPO DE SERVIÇO ########################## -->
+	
+
+	<url-mapping id="cadastrarTipoServicoPage">
+		<pattern value="/admin/tipoServico/cadastrar" />
+		<view-id value="/admin/tipoServico/cadastrar.xhtml" />
+	</url-mapping>
+	
+	<url-mapping id="consultarTipoServicoPage">
+		<pattern value="/admin/tipoServico/consultar" />
+		<view-id value="/admin/tipoServico/consultar.xhtml" />
+	</url-mapping>
+	
+	
+	<!-- ##################### LINKS DO PREDIO ########################## -->
+	
+	
+	<url-mapping id="cadastrarPredioPage">
+		<pattern value="/admin/predio/cadastrar" />
+		<view-id value="/admin/predio/cadastrar.xhtml" />
+	</url-mapping>
+	
+	<url-mapping id="consultarPredioPage">
+		<pattern value="/admin/predio/consultar" />
+		<view-id value="/admin/predio/consultar.xhtml" />
+	</url-mapping>
+	
+	
+	<!-- ##################### LINKS DO SETOR ########################## -->
+	
+	
+	<url-mapping id="cadastrarUnidadePage">
+		<pattern value="/admin/unidade/cadastrar" />
+		<view-id value="/admin/unidade/cadastrar.xhtml" />
+	</url-mapping>
+	
+	<url-mapping id="consultarUnidadePage">
+		<pattern value="/admin/unidade/consultar" />
+		<view-id value="/admin/unidade/consultar.xhtml" />
+	</url-mapping>
+	
+	
+	<!-- ##################### LINKS DO USUARIO ########################## -->
+	
+	
+	<url-mapping id="alterarSenhaPage">
+		<pattern value="/usuario/comum/alterarSenha/#{alterarSenhaUsuarioFormBean.obterPessoa.id}" />
+		<view-id value="/usuario/comum/alterarSenha.xhtml" />
+		<action onPostback="false">#{alterarSenhaUsuarioFormBean.obter}</action>
+	</url-mapping>
+	
+	<url-mapping id="consultarUsuarioPage">
+		<pattern value="/usuario/gerenciamento/consultar" />
+		<view-id value="/usuario/gerenciamento/consultar.xhtml" />
+	</url-mapping>
+	
+	<url-mapping id="cadastrarUsuarioPage">
+		<pattern value="/usuario/gerenciamento/cadastrar" />
+		<view-id value="/usuario/gerenciamento/cadastrar.xhtml" />
+	</url-mapping>
+	
+	<url-mapping id="atualizarUsuarioPage">
+		<pattern value="/usuario/gerenciamento/atualizar#{editarUsuarioFormBean.editarUsuario.login}" />
+		<view-id value="/usuario/gerenciamento/editar.xhtml" />
+		<action onPostback="false">#{editarUsuarioFormBean.obter}</action>
+	</url-mapping>
+	
+	<!-- ##################### LINKS DA SALA ########################## -->
+	
+	<url-mapping id="cadastrarSalaPage">
+		<pattern value="/admin/sala/cadastrar" />
+		<view-id value="/admin/sala/cadastrar.xhtml" />
+	</url-mapping>
+
+	<url-mapping id="consultarSalaPage">
+		<pattern value="/admin/sala/consultar" />
+		<view-id value="/admin/sala/consultar.xhtml" />
+	</url-mapping>
+
+	<!-- ##################### LINKS DO HOME ########################## -->
+
+
+	<url-mapping id="homePage">
+		<pattern value="/" />
+		<view-id value="/index.xhtml" />
+	</url-mapping>
+
+	<url-mapping id="loginPage">
+		<pattern value="/login" />
+		<view-id value="/login.xhtml" />
+	</url-mapping>
+
+	<url-mapping id="acessoNegadoPage">
+		<pattern value="/acessoNegado" />
+		<view-id value="/acessoNegado.xhtml" />
+	</url-mapping>
+
+</pretty-config>

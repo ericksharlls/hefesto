@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>br.ufrn.ct.hefesto</groupId>
+  <artifactId>hefesto-agregator</artifactId>
+  <packaging>pom</packaging>
+  <version>1.0-SNAPSHOT</version>
+  <name>hefesto-agregator</name>
+  <url>http://maven.apache.org</url>
+  
+  <properties>
+
+      <!-- Spring -->
+      <spring-framework.version>5.1.1.RELEASE</spring-framework.version>
+
+      <!-- Primefaces Version -->
+      <primefaces.version>6.2</primefaces.version>
+
+      <!-- JSF Version -->
+      <jsf.version>2.2.18</jsf.version>
+
+      <!-- Hibernate / JPA -->
+      <hibernate.version>5.3.6.Final</hibernate.version>
+
+      <!-- Ehcache 3.x -->
+      <ehcache.version>3.6.0</ehcache.version>
+
+      <!-- mysql java connector -->
+      <mysql-connector-java.version>8.0.19</mysql-connector-java.version>
+
+      <!-- Modulos Version -->
+      <dev.modulos.version>1.0-SNAPSHOT</dev.modulos.version>
+	  
+	  <!-- Apache Commons Lang -->
+	  <apache-commons-lang.version>3.8.1</apache-commons-lang.version>
+
+  </properties>	
+  
+  
+<dependencyManagement>
+      <dependencies>
+
+        <!-- Dependencias para os projetos-filho -->       
+        <dependency>
+          <groupId>br.ufrn.ct.hefesto</groupId>
+          <artifactId>hefesto-controllers</artifactId>
+          <version>${project.version}</version>
+        </dependency>
+        <dependency>
+          <groupId>br.ufrn.ct.hefesto</groupId>
+          <artifactId>hefesto-service</artifactId>
+          <version>${project.version}</version>
+        </dependency>
+        <dependency>
+        <groupId>br.ufrn.ct.hefesto</groupId>
+          <artifactId>hefesto-repository</artifactId>
+          <version>${project.version}</version>
+        </dependency>
+        <dependency>
+          <groupId>br.ufrn.ct.hefesto</groupId>
+          <artifactId>hefesto-model</artifactId>
+          <version>${project.version}</version>
+        </dependency>
+
+        <!-- Spring and Transactions -->        
+        <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-orm</artifactId>
+          <version>${spring-framework.version}</version>
+        </dependency>
+        <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-core</artifactId>
+          <version>${spring-framework.version}</version>
+        </dependency>
+        <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-tx</artifactId>
+          <version>${spring-framework.version}</version>
+        </dependency>
+        <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-webmvc</artifactId>
+          <version>${spring-framework.version}</version>
+        </dependency>
+
+        <!-- Spring Security -->
+        <dependency>
+          <groupId>org.springframework.security</groupId>
+          <artifactId>spring-security-web</artifactId>
+          <version>${spring-framework.version}</version>
+        </dependency>
+        <dependency>
+          <groupId>org.springframework.security</groupId>
+          <artifactId>spring-security-config</artifactId>
+          <version>${spring-framework.version}</version>
+        </dependency>
+        <dependency>
+          <groupId>org.springframework.security</groupId>
+          <artifactId>spring-security-taglibs</artifactId>
+          <version>${spring-framework.version}</version>
+        </dependency>
+
+        <!-- Primefaces -->
+        <dependency>
+          <groupId>org.primefaces</groupId>
+          <artifactId>primefaces</artifactId>
+          <version>${primefaces.version}</version>
+        </dependency>
+
+        <!-- JSF Dependencies -->
+        <dependency>
+          <groupId>com.sun.faces</groupId>
+          <artifactId>jsf-api</artifactId>
+          <version>${jsf.version}</version>
+        </dependency>
+        <dependency>
+          <groupId>com.sun.faces</groupId>
+          <artifactId>jsf-impl</artifactId>
+          <version>${jsf.version}</version>
+        </dependency>
+
+		<!-- Hibernate Dependencies -->
+          <!-- Hibernate -->
+          <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>${hibernate.version}</version>
+          </dependency>
+          <!-- Hibernate Jcache - Modulo do Hibernate para suporte a especificacao JCache-->
+          <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-jcache</artifactId>
+            <version>${hibernate.version}</version>
+          </dependency>
+          <!-- Ehcache 3.x -->
+          <dependency>
+            <groupId>org.ehcache</groupId>
+            <artifactId>ehcache</artifactId>
+            <version>${ehcache.version}</version>
+          </dependency>
+
+        <!-- mysql java connector -->
+        <dependency>
+          <groupId>mysql</groupId>
+          <artifactId>mysql-connector-java</artifactId>
+          <version>${mysql-connector-java.version}</version>
+		      <!-- <scope>provided</scope> -->
+        </dependency>
+		
+		<!-- Apache commons-lang3 -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>${apache-commons-lang.version}</version>
+		</dependency>
+		
+        <!-- Modulos Dependencies -->
+		<dependency>
+          <groupId>dev.modulo.utils</groupId>
+          <artifactId>modulo-utils</artifactId>
+          <version>${dev.modulos.version}</version>
+        </dependency>
+        <dependency>
+          <groupId>dev.modulo.service</groupId>
+          <artifactId>modulo-service</artifactId>
+          <version>${dev.modulos.version}</version>
+        </dependency>
+        <dependency>
+          <groupId>dev.modulo.web</groupId>
+          <artifactId>modulo-abstract-web</artifactId>
+          <version>${dev.modulos.version}</version>
+        </dependency>
+        <dependency>
+          <groupId>dev.modulo.abstractmodel</groupId>
+          <artifactId>modulo-abstract-model</artifactId>
+          <version>${dev.modulos.version}</version>
+        </dependency>
+        <dependency>
+          <groupId>dev.modulo.persistence</groupId>
+          <artifactId>modulo-abstract-dao</artifactId>
+          <version>${dev.modulos.version}</version>
+        </dependency>
+
+        <dependency>
+          <groupId>junit</groupId>
+          <artifactId>junit</artifactId>
+          <version>3.8.1</version>
+          <scope>test</scope>
+        </dependency>
+
+      </dependencies>
+  </dependencyManagement>
+
+	
+  
+  <modules>
+    <module>hefesto-model</module>
+    <module>hefesto-repository</module>
+    <module>hefesto-service</module>
+    <module>hefesto-controllers</module>
+    <module>hefesto-pages</module>
+  </modules>
+  
+</project>

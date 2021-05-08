@@ -1,0 +1,133 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>br.ufrn.ct.hefesto</groupId>
+    <artifactId>hefesto-agregator</artifactId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
+  
+  <groupId>br.ufrn.ct.hefesto</groupId>
+  <artifactId>hefesto-pages</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <packaging>war</packaging>
+  <name>hefesto-pages Maven Webapp</name>
+  <url>http://maven.apache.org</url>
+  
+    <properties>
+		<!-- Generic properties -->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<java.version>1.8</java.version>
+		
+		<!-- PrettyFaces Version -->
+      	<prettyfaces.version>3.4.1.Final</prettyfaces.version>
+		
+  </properties>
+  
+  <dependencies>
+  		<dependency>
+			<groupId>br.ufrn.ct.hefesto</groupId>
+  			<artifactId>hefesto-controllers</artifactId>
+  		</dependency>
+  		<dependency>
+			<groupId>br.ufrn.ct.hefesto</groupId>
+  			<artifactId>hefesto-service</artifactId>
+  		</dependency>
+    	<!-- Spring Security -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+		</dependency>
+		<!-- Bootsfaces Dependency -->
+		<dependency>
+			<groupId>net.bootsfaces</groupId>
+			<artifactId>bootsfaces</artifactId>
+			<version>1.4.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-taglibs</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.webflow</groupId>
+			<artifactId>spring-faces</artifactId>
+			<version>2.5.1.RELEASE</version>
+		</dependency>
+		
+		<!-- JSF Dependencies -->
+		<dependency>
+			<groupId>com.sun.faces</groupId>
+			<artifactId>jsf-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.faces</groupId>
+			<artifactId>jsf-impl</artifactId>
+		</dependency>
+		
+		<!-- mysql java connector -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+		</dependency>
+		<!-- Primefaces -->
+		<dependency>
+			<groupId>org.primefaces</groupId>
+			<artifactId>primefaces</artifactId>
+		</dependency>
+		
+		<!-- Pretty for JSF 2.x -->
+        <dependency>
+          <groupId>org.ocpsoft.rewrite</groupId>
+          <artifactId>rewrite-servlet</artifactId>
+          <version>${prettyfaces.version}</version>
+        </dependency>
+        <dependency>
+          <groupId>org.ocpsoft.rewrite</groupId>
+          <artifactId>rewrite-config-prettyfaces</artifactId>
+          <version>${prettyfaces.version}</version>
+        </dependency>
+		
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.1.0</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>javax.servlet.jsp-api</artifactId>
+			<version>2.3.1</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.servlet.jsp.jstl</groupId>
+			<artifactId>javax.servlet.jsp.jstl-api</artifactId>
+			<version>1.2.1</version>
+		</dependency>
+
+  </dependencies>
+  
+  <build>
+    <finalName>hefesto</finalName>
+    <plugins>
+		<!-- Embedded Apache Tomcat required for testing war -->
+      <plugin>
+        <groupId>org.apache.tomcat.maven</groupId>
+        <artifactId>tomcat7-maven-plugin</artifactId>
+        <version>2.2</version>
+        <configuration>
+          <path>/hefesto</path>
+        </configuration>
+      </plugin>
+	</plugins>
+  </build>
+  
+</project>

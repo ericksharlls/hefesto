@@ -1,0 +1,154 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:c="http://java.sun.com/jstl/core">	
+
+<ui:composition template="/template/interface-nova/template.xhtml">
+
+<ui:define name="header">
+	<title>Cadastro de Pessoa</title>
+</ui:define>
+
+<ui:define name="conteudo">
+	
+	<div id="loader" class="load-bar" style="display: none">
+		<div class="bar"></div>
+		<div class="bar"></div>
+		<div class="bar"></div>
+	</div>
+		
+	<h6 style="margin: 20px 0px 0px 10px">
+		<a href="/hefesto/index.jsf"
+			style="color: blue !important">Início</a> / <a href="consultar.xhtml" style="color:blue !important">Gerenciar Pessoas</a>  / Cadastrar Pessoa
+	</h6>
+	
+	<div class="ui-g-12">
+		<div class="ui-g-3"></div>
+			<div class="login-box w3-card ui-g-6" style="margin-top: 30px;">
+				<div class="box login-box-body">
+				<legend style="text-align: center;">Cadastrar Pessoa</legend>
+					<h:form>
+						<h:outputLabel value="* Campo Obrigatório" class="campo-obrigatorio" style="margin-left:15px"/>
+						<br/>
+						<p:inputText styleClass="" id="hidden-element" style="visibility:hidden"/>
+						
+						<div class="form-group has-feedback ui-g-12">
+							<h:outputLabel value="Nome *" for="nome" />
+							<h:outputText value=" (Máximo de 80 caracteres)" styleClass="mensagemLimiteCaracteresField" />
+							<br/>
+							<b:inputText id="nome" large-screen='full-width' placeholder="Digite seu nome" maxlength="80" value="#{cadastrarPessoaFormBean.cadastrarPessoa.nome}">
+								<f:facet name="prepend">
+									<b:button look="default" iconAwesome="user" />
+								</f:facet>
+							</b:inputText>
+						</div>
+
+						<div class="form-group has-feedback ui-g-12">
+							<h:outputLabel value="E-mail *" for="email" />
+							<h:outputText value=" (Máximo de 40 caracteres)" styleClass="mensagemLimiteCaracteresField" />
+							<br/>
+							<b:inputText id="email" large-screen='two-thirds' placeholder="exemplo@exemplo.com.br" maxlength="40" value="#{cadastrarPessoaFormBean.cadastrarPessoa.email}">
+								<f:facet name="prepend">
+									<b:button look="default" iconAwesome="envelope" />
+								</f:facet>
+							</b:inputText>
+							
+							<h:outputLabel value="Telefone: *" for="telefone" />
+							<p:inputMask id="telefone" large-screen='one-third' placeholder="(XX) XXXXX-XXXX" mask="(99) 99999-9999" value="#{cadastrarPessoaFormBean.cadastrarPessoa.telefone}">
+								<f:facet name="prepend">
+									<b:button look="default" iconAwesome="phone" />
+								</f:facet>
+							</p:inputMask>
+						</div>
+						<div style="margin-left:20px">
+						<div class="form-group has-feedback ui-g-6">
+							<h:outputLabel value="Documento * " for="documento" />
+							<h:outputText value=" (Máximo de 11 caracteres)" styleClass="mensagemLimiteCaracteresField" />
+							<br />
+							<p:inputMask value="#{cadastrarPessoaFormBean.cadastrarPessoa.numeroDocumento}" id="documento" mask="?99999999999" maxlength="11"/>
+						</div>
+						
+						<div class="form-group has-feedback ui-g-6">
+							<h:outputLabel value="Matrícula: " for="matricula" />
+							<h:outputText value=" (Máximo de 13 caracteres)" styleClass="mensagemLimiteCaracteresField" />
+							<br />
+							<p:inputMask value="#{cadastrarPessoaFormBean.cadastrarPessoa.matricula}" id="matricula" mask="?9999999999999" maxlength="13" />	
+						</div>
+						</div>
+						<div class="form-group has-feedback ui-g-12">
+							<h:outputLabel value="Vínculo *" for="vinculo"/>
+							<br />
+							<b:selectOneMenu id="vinculo" value="#{cadastrarPessoaFormBean.cadastrarPessoa.idTipoPessoa}" colMd="4">
+								<f:selectItem itemLabel="Selecione um vínculo" itemValue="" />
+								<f:selectItems value="#{popularComboTiposPessoaFormBean.retornaTiposPessoa()}" var="tipoPessoa"
+								itemLabel="#{tipoPessoa.nome}"
+								itemValue="#{tipoPessoa.id}"/>
+							</b:selectOneMenu>
+						</div>
+						
+						<div class="form-group has-feedback ui-g-12">
+							<label for="nascimento" class="">Data de Nascimento *</label>
+							<br />
+	        				<p:calendar id="nascimento" value="#{cadastrarPessoaFormBean.cadastrarPessoa.dataNascimento}" pattern="dd-MM-yyyy" mask="true" />
+						</div>
+						
+						<div class="form-group has-feedback ui-g-12">
+							
+							<h:outputLabel value="Setor de Lotação *" for="setorLot" />
+							<br />
+					        <p:autoComplete id="setorLot" value="#{cadastrarPessoaFormBean.setorLotacao}" 
+					        				completeMethod="#{cadastrarPessoaFormBean.completeSetores}" var="setor" size="55"
+					        				itemLabel="#{setor.nome}" itemValue="#{setor}" converter="#{setorConverter}" cols="23"
+					        				scrollable="true" style="width: 500px;" scrollHeight="350" appendTo="@this">					             
+					            <p:column>
+					            	<h:outputText value="(#{setor.codigo}) " />
+					                <h:outputText value="#{setor.descricao}" />
+					            </p:column>
+					        </p:autoComplete>
+							
+						</div>
+						
+						<div class="form-group has-feedback ui-g-12">
+							
+							<h:outputLabel value="Setor de Localização *" for="setorLoc" />
+							<br />
+					        <p:autoComplete id="setorLoc" value="#{cadastrarPessoaFormBean.setorLocalizacao}" 
+					        				completeMethod="#{cadastrarPessoaFormBean.completeSetores}" var="setor" size="55"
+					        				itemLabel="#{setor.nome}" itemValue="#{setor}" converter="#{setorConverter}" cols="23"
+					        				scrollable="true" style="width: 500px;" scrollHeight="350" appendTo="@this">					             
+					            <p:column>
+					            	<h:outputText value="(#{setor.codigo}) " />
+					                <h:outputText value="#{setor.descricao}" />
+					            </p:column>
+					        </p:autoComplete>
+							
+						</div>
+						
+					    <div class="row"> 
+							<p:spacer height="10" />
+							<div class="col-xs-12">
+								<br />
+								<br />
+								<b:commandButton value="Cadastrar" look="success" large-screen="half" action="#{cadastrarPessoaFormBean.cadastrar}" style="height:50px"/>
+								<b:commandButton value="Cancelar" look="danger" large-screen="half"  action="pretty:consultarPessoaPage" style="height:50px"/>
+								<br />
+								<br />
+								<br />
+							</div>
+						</div>
+						
+					</h:form>
+				</div>
+			</div>
+	</div>
+
+
+</ui:define>
+
+</ui:composition>
+</html>

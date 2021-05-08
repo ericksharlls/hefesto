@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:sec="http://www.springframework.org/security/tags">
+	
+	
+<h:body>
+	<ui:composition template="../template/layout.xhtml">
+
+		<ui:define name="content">
+			
+			<div class="container "  >
+					
+				<br />
+				<br />
+				<div class="py-5 text-center">
+					
+					<h2></h2>
+
+				</div>
+
+				<h:form class="formAtualizarAluno" >
+					
+					<br />
+					
+  					<div class="row">
+					<sec:authorize access="hasRole('ADMINISTRADOR')">	
+					
+							<div class="col-sm">
+						   		<a href="#{facesContext.externalContext.requestContextPath}/aluno/consultar">
+						   		   <img class="mb-3 big-icons hover-big-icons" src="#{facesContext.externalContext.requestContextPath}/estilo/images/iconeAlunoBuscar.png" alt="" /></a>
+						   	</div>
+						   	<div class="col-sm">
+								<a href="#{facesContext.externalContext.requestContextPath}/empresa/consultar">
+								<img class="mb-3 big-icons hover-big-icons" src="#{facesContext.externalContext.requestContextPath}/estilo/images/iconeEmpresaBuscar.png" alt=""/></a>
+							</div>
+							<div class="col-sm">
+								<a href="#{facesContext.externalContext.requestContextPath}/admin/estagio/cadastrar">
+								<img class="mb-3 big-icons hover-big-icons" src="#{facesContext.externalContext.requestContextPath}/estilo/images/iconeEstagioAdd.png" alt=""/></a>
+							</div>
+						
+					</sec:authorize>
+					</div>
+					<div class="row">
+					<sec:authorize access="hasRole('EMPRESA')">	
+						<div class="col-sm">
+						   			
+						</div>
+						<div class="col-sm">
+							<a href="#{facesContext.externalContext.requestContextPath}/empresa/estagio/cadastrar">
+							<img class="mb-3 big-icons hover-big-icons" src="#{facesContext.externalContext.requestContextPath}/estilo/images/iconeEstagioAdd.png" alt=""/></a>
+						</div>
+						<div class="col-sm">
+							<a href="#{facesContext.externalContext.requestContextPath}/empresa/estagio/consultar">
+							<img class="mb-3 big-icons hover-big-icons" src="#{facesContext.externalContext.requestContextPath}/estilo/images/iconeEstagio.png" alt=""/></a>
+						</div>
+						<div class="col-sm">
+						   			
+						</div>
+					</sec:authorize>
+					</div>
+					<div class="row">
+					<sec:authorize access="hasRole('ALUNO')">	
+						<div class="col-sm">
+						   			
+						</div>
+						
+						<div class="col-sm">
+						   			<a href="#{facesContext.externalContext.requestContextPath}/aluno/estagio/cadastrar">
+									<img class="mb-3 big-icons hover-big-icons" src="#{facesContext.externalContext.requestContextPath}/estilo/images/iconeEstagio.png" alt=""/></a>
+						</div>
+						
+						<div class="col-sm">
+						   			
+						</div>
+					</sec:authorize>
+					</div>
+				</h:form>
+			</div>
+		</ui:define>
+
+	</ui:composition>
+</h:body>	
+
+</html>

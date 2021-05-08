@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache:config
+    xmlns:ehcache="http://www.ehcache.org/v3"
+    xmlns:jcache="http://www.ehcache.org/v3/jsr107">
+
+    <ehcache:cache alias="default-query-results-region">
+        <ehcache:expiry>
+            <ehcache:tti unit="seconds">360</ehcache:tti>
+        </ehcache:expiry>
+        <ehcache:heap>100</ehcache:heap>
+    </ehcache:cache>
+
+    <ehcache:cache alias="default-update-timestamps-region">
+        <ehcache:expiry>
+            <ehcache:none />
+        </ehcache:expiry>
+        <ehcache:heap>100</ehcache:heap>
+    </ehcache:cache>
+
+	<ehcache:cache alias="TipoPessoa">
+        <ehcache:expiry>
+            <ehcache:tti unit="seconds">40</ehcache:tti>
+        </ehcache:expiry>
+        <ehcache:heap unit="entries">10</ehcache:heap>
+    </ehcache:cache>
+    
+    <ehcache:cache alias="TipoPessoaDao.findAll">
+        <ehcache:expiry>
+            <ehcache:tti unit="seconds">20</ehcache:tti>
+        </ehcache:expiry>
+        <ehcache:heap unit="entries">7</ehcache:heap>
+    </ehcache:cache>
+    
+    <ehcache:cache alias="Status">
+        <ehcache:expiry>
+            <ehcache:tti unit="minutes">6</ehcache:tti>
+        </ehcache:expiry>
+        <ehcache:heap unit="entries">5</ehcache:heap>
+    </ehcache:cache>
+    
+    <ehcache:cache alias="StatusDao.findAll">
+        <ehcache:expiry>
+            <ehcache:tti unit="minutes">5</ehcache:tti>
+        </ehcache:expiry>
+        <ehcache:heap unit="entries">5</ehcache:heap>
+    </ehcache:cache>
+    
+    <ehcache:cache alias="Predio">
+        <ehcache:expiry>
+            <ehcache:tti unit="minutes">10</ehcache:tti>
+        </ehcache:expiry>
+        <ehcache:heap unit="entries">10</ehcache:heap>
+    </ehcache:cache>
+    
+    <ehcache:cache alias="PredioDao.findAll">
+        <ehcache:expiry>
+            <ehcache:tti unit="minutes">9</ehcache:tti>
+        </ehcache:expiry>
+        <ehcache:heap unit="entries">10</ehcache:heap>
+    </ehcache:cache>
+
+</ehcache:config>

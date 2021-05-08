@@ -1,0 +1,99 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:c="http://java.sun.com/jstl/core">
+
+<ui:composition template="/template/interface-nova/template.xhtml">
+
+<ui:define name="header">
+	<title>Histórico de Chamados</title>
+</ui:define>
+
+<ui:define name="conteudo">
+
+		<div id="loader" class="load-bar" style="display: none">
+			<div class="bar"></div>
+			<div class="bar"></div>
+			<div class="bar"></div>
+		</div>
+		
+		<h6 style="margin: 20px 0px 0px 10px">
+			<a href="../index.jsf?faces-redirect=true"
+				style="color: blue !important">Início</a> / <a href="/hefesto/chamado/comum/consultar" style="color:blue !important">Chamados</a> / Ver Histórico
+		</h6>
+		
+		<div class="ui-g-12">
+			<div class="ui-g-2"></div>
+			<div class="login-box w3-card ui-g-8" style="margin-top: 30px; padding: 30px;">
+				<h2> Informações do Chamado </h2>
+				<div class="login-box w3-card ui-g-8" style="margin-top: 10px; margin-bottom: 30px; padding: 30px; width:100%;">
+					<div class="box login-box-body">
+						<h:panelGrid columns="2" style="width:100%; height: 100%;">
+				            <p:outputPanel>
+				                <h:panelGrid columns="1" cellpadding="5">
+				                	
+				                	<h:outputLabel value="Código: ">
+				                		<h:outputText value="#{consultarHistoricoChamadoFormBean.chamado.codigo}" style="font-weight:normal"/>
+				                	</h:outputLabel>
+										
+									<h:outputLabel value="Tipo de Serviço: ">
+										<h:outputText value="#{consultarHistoricoChamadoFormBean.chamado.tipoServico}" style="font-weight:normal"/>
+									</h:outputLabel>
+									
+									<h:outputLabel value="Descrição: ">
+										<h:outputText value="#{consultarHistoricoChamadoFormBean.chamado.descricao}" style="font-weight: normal"/>
+									</h:outputLabel>
+										
+								</h:panelGrid>
+				            </p:outputPanel>
+				        </h:panelGrid>
+					</div>
+				</div>
+				<h2> Histórico do Chamado </h2>
+				<div class="login-box w3-card ui-g-8" style="margin-top: 10px; padding: 30px; width:100%;">
+					<div class="box login-box-body">
+						<h:form class=" " id="historicoChamadoForm">
+							<p:repeat value="#{consultarHistoricoChamadoFormBean.historicosExibidos}" var="hist">
+						        <h:panelGrid columns="2" style="width:100%; height: 100%;">
+						            <p:outputPanel>
+						                <h:panelGrid columns="1" cellpadding="5">
+						                    <h:outputText value="#{hist.nomePessoa} #{hist.labelOperacao}" style="font-weight: bold"/>
+						                    <h:outputText value="Comentário: #{hist.comentario}" rendered="#{hist.temComentario == true}" />
+						                    <h:outputText value="Data: #{hist.labelHora}" />
+						                </h:panelGrid>
+						            </p:outputPanel>
+						        </h:panelGrid>
+						        <hr />
+						    </p:repeat>
+						    
+					</h:form>
+
+					</div>
+					
+				</div>
+				<h:form>
+					<div class="row"> 
+							<p:spacer height="10" />
+							<div class="col-xs-12">
+								<br />
+								<br />
+								<b:commandButton  value="Voltar" look="danger" large-screen="half"  action="pretty:consultarChamadoPage" style="height:50px"/>
+								<br />
+								<br />
+								<br />
+							</div>
+						</div>
+				</h:form>
+			</div>
+			
+		</div>
+		
+</ui:define>
+    
+</ui:composition>
+</html>

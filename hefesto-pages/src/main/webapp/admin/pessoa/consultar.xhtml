@@ -1,0 +1,160 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:c="http://java.sun.com/jstl/core">
+
+<ui:composition template="/template/interface-nova/template.xhtml">
+
+	<ui:define name="header">
+		<title>Consulta de Pessoas</title>
+	</ui:define>
+	
+	<ui:define name="conteudo">
+		<h6 style="margin: 20px 0px 0px 10px">
+				<a href="/hefesto/index.jsf"
+					style="color: blue !important">Início</a> / <a href="consultar.xhtml" style="color:blue !important">Gerenciar Pessoas</a>  /
+				Consultar Pessoas
+		</h6>
+		<div class="ui-g-12">
+			<div class="ui-g-2"></div>
+				<div class="login-box w3-card ui-g-8" style="margin-top: 30px;">
+					<div class="box login-box-body">
+					<legend style="text-align: center;">Consultar Pessoas</legend>
+					<h:form class=" " id="consultarPessoaForm">
+					
+						<p:dialog header="Excluir Pessoa" widgetVar="dialogPessoa" modal="true" height="300" width="400" resizable="false">
+						<p:outputPanel id="pessoaDetalhes">
+							<h:panelGrid columns="2" cellpadding="5">
+			    				<h:outputLabel for="nomeExcluir" value="Nome:" />
+			    				<h:outputText value="#{consultarPessoaFormBean.pessoaModelSelecionado.nome}" id="nomeExcluir" />
+			    				
+			    				<h:outputLabel for="numDocumentoExcluir" value="Número do Documento:" />
+			    				<h:outputText value="#{consultarPessoaFormBean.pessoaModelSelecionado.numeroDocumento}" id="numDocumentoExcluir" />
+			    				
+			    				<h:outputLabel for="tipoPessoaExcluir" value="Tipo da Pessoa:" />
+			    				<h:outputText value="#{consultarPessoaFormBean.pessoaModelSelecionado.tipoPessoa}" id="tipoPessoaExcluir" />
+			    			
+			    				<f:facet name="footer">
+			                		<b:commandButton value="Excluir" 
+			                		class="pop-up-button-delete" look="danger" icon="trash" 
+			                		style="margin-top:110px" action="#{consultarPessoaFormBean.excluir}" />
+			            		</f:facet>
+			            		
+							</h:panelGrid>
+						</p:outputPanel>
+						</p:dialog> 
+						
+						<div class="form-group has-feedback ui-g-12">
+							<b:inputText id="nome" label="Nome:" large-screen='two-thirds' placeholder="Insira o nome" value="#{consultarPessoaFormBean.consultarPessoa.nome}">
+									<f:facet name="prepend">
+										<b:button look="default" iconAwesome="user" />
+									</f:facet>
+							</b:inputText>
+						<br />
+						</div>
+						<div class="form-group has-feedback ui-g-12">
+							<b:inputText id="documento" label="Nº do Documento:" large-screen='one-third' placeholder="Insira o número do Documento" value="#{consultarPessoaFormBean.consultarPessoa.numeroDocumento}">
+									<f:facet name="prepend">
+										<b:button look="default" iconAwesome="id-card" />
+									</f:facet>
+							</b:inputText>
+					
+							<h:outputLabel value="Vínculo: " for="tipoPessoa"/>
+							<br />
+							<b:selectOneMenu value="#{consultarPessoaFormBean.consultarPessoa.tipoPessoa}" colMd="4">
+								<f:selectItem itemLabel="Selecione um vínculo" itemValue="" />
+								<f:selectItems value="#{popularComboTiposPessoaFormBean.retornaTiposPessoa()}" var="tipoPessoa"
+								itemLabel="#{tipoPessoa.nome}"
+								itemValue="#{tipoPessoa.id}"/>
+							</b:selectOneMenu>
+						<br />
+						</div>
+						
+						<div class="form-group has-feedback ui-g-12">
+							<h:outputLabel value="Setor de Lotação: " for="setorLot" />
+							<br />
+					        <p:autoComplete id="setorLot" value="#{consultarPessoaFormBean.setorLotacao}" 
+					        				completeMethod="#{consultarPessoaFormBean.completeSetores}" var="setor" size="45"
+					        				itemLabel="#{setor.nome}" itemValue="#{setor}" converter="#{setorConverter}" cols="23"
+					        				scrollable="true" style="width: 500px;" scrollHeight="350" appendTo="@this">					             
+					            <p:column>
+					            	<h:outputText value="(#{setor.codigo}) " />
+					                <h:outputText value="#{setor.descricao}" />
+					            </p:column>
+					        </p:autoComplete>
+						</div>
+						
+						<div class="form-group has-feedback ui-g-12">
+							<h:outputLabel value="Setor de Localização: " for="setorLoc" />
+							<br />
+					        <p:autoComplete id="setorLoc" value="#{consultarPessoaFormBean.setorLocalizacao}" 
+					        				completeMethod="#{consultarPessoaFormBean.completeSetores}" var="setor" size="45"
+					        				itemLabel="#{setor.nome}" itemValue="#{setor}" converter="#{setorConverter}" cols="23"
+					        				scrollable="true" style="width: 500px;" scrollHeight="350" appendTo="@this">					             
+					            <p:column>
+					            	<h:outputText value="(#{setor.codigo}) " />
+					                <h:outputText value="#{setor.descricao}" />
+					            </p:column>
+					        </p:autoComplete>
+						</div>
+						
+						<div>	
+							<br />
+							<br />	
+							<b:commandButton value="Consultar" action="#{consultarPessoaFormBean.consultar}" icon="search" look="success" style="margin-left:23px" />
+							<br />
+							<br />
+						</div>
+						<p:dataTable id="pessoaTable" paginator="true" rows="10" lazy="true"
+							paginatorAlwaysVisible="false" paginatorPosition="bottom"
+							var="pessoa" value="#{consultarPessoaFormBean.lazyPessoa}"
+							emptyMessage="Nenhuma Pessoa Encontrada">
+							<f:facet name="header">
+								Lista de Pessoas
+							</f:facet>
+							<p:column headerText="Nome" class="data-table-align-text">
+								<h:outputText value="#{pessoa.nome}" />
+							</p:column>
+							<p:column headerText="Número do Documento" class="data-table-align-text">
+								<h:outputText value="#{pessoa.numeroDocumento}" />
+							</p:column>
+							<p:column headerText="Matrícula" class="data-table-align-text">
+								<h:outputText value="#{pessoa.matricula}" />
+							</p:column>
+							<p:column headerText="Telefone" class="data-table-align-text">
+								<h:outputText value="#{pessoa.telefone}" />
+							</p:column>
+							<p:column headerText="Email" class="data-table-align-text">
+								<h:outputText value="#{pessoa.email}" />
+							</p:column>
+							<p:column headerText="Tipo Pessoa" class="data-table-align-text">
+								<h:outputText value="#{pessoa.tipoPessoa}" />
+							</p:column>
+							<p:column headerText="Setor de Localização" class="data-table-align-text">
+								<h:outputText value="#{pessoa.setorLocalizacao}" />
+							</p:column>
+							<p:column headerText="Setor de Lotação" class="data-table-align-text">
+								<h:outputText value="#{pessoa.setorLotacao}" />
+							</p:column>
+							<p:column headerText="Operações" style="align-items: center;justify-content: center;">
+								<h:outputLink class="icones-operacoes-duo" value="#{facesContext.externalContext.requestContextPath}/admin/pessoa/atualizar/#{pessoa.id}"><b:button iconAwesome="edit" look="primary" tooltip="Editar"/></h:outputLink>
+								<p:commandLink id="linkExcluirPessoa" update=":consultarPessoaForm:pessoaDetalhes" oncomplete="PF('dialogPessoa').show();" action="#{consultarPessoaFormBean.setPessoaModelSelecionado(pessoa)}">
+					       			<b:button iconAwesome="trash" look="danger" tooltip="Excluir"/>
+					   			</p:commandLink>
+							</p:column>
+						</p:dataTable>
+	
+					</h:form>
+			</div>
+	
+				</div>
+			</div>				
+	</ui:define>		
+
+</ui:composition>
+</html>

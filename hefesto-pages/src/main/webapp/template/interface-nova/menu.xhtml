@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:sec="http://www.springframework.org/security/tags">
+
+
+   <b:navBar fluid="true">
+		<h:form>
+			<b:navbarLinks style="font-size: 18px;">
+
+				<b:navCommandLink value="Início"
+					href="/index.xhtml" iconAwesome="home" />
+				<b:dropMenu value="Chamados">
+					<sec:authorize access="hasAnyRole('GESTOR_SETOR', 'TECNICO_ATENDIMENTO')">
+						<b:navLink value="Cadastrar Chamado"
+							href="/chamado/atendimento/cadastrar.xhtml"
+							iconAwesome="plus" />
+					</sec:authorize>	
+					<b:navLink value="Consultar Chamados" 
+						href="#{facesContext.externalContext.requestContextPath}/chamado/comum/consultar" 
+						iconAwesome="list-alt" />
+					<sec:authorize access="hasAnyRole('GESTOR_SETOR', 'TECNICO_ATENDIMENTO')">
+						<b:navLink value="Finalizar Chamado"
+							href="#{facesContext.externalContext.requestContextPath}/chamado/atendimento/finalizar"
+							iconAwesome="times-circle" />
+					</sec:authorize>		
+				</b:dropMenu>
+				<b:dropMenu value="Gerenciar Pessoas">
+					<b:navLink value="Cadastrar Pessoa"
+						href="#{facesContext.externalContext.requestContextPath}/admin/pessoa/cadastrar.xhtml"
+						iconAwesome="plus" />
+					<b:navCommandLink value="Consultar Pessoas" iconAwesome="list-alt"  href="#{facesContext.externalContext.requestContextPath}/admin/pessoa/consultar.xhtml"/>
+				</b:dropMenu>
+				  <b:dropMenu value="Gerenciar Cadastros">
+			        <b:dropMenu value="Tipo de Serviço" iconAwesome="briefcase">
+			          <sec:authorize access="hasAnyRole('GESTOR_SETOR', 'TECNICO_ATENDIMENTO')">
+			          	<b:navLink value="Cadastrar tipo de Serviço" href="#{facesContext.externalContext.requestContextPath}/admin/tipoServico/cadastrar.xhtml" iconAwesome="plus"></b:navLink>
+			          </sec:authorize>
+			          <b:navLink value="Consultar tipo de Serviço" href="#{facesContext.externalContext.requestContextPath}/admin/tipoServico/consultar.xhtml" iconAwesome="list-alt"></b:navLink>
+			        </b:dropMenu>
+			        <b:dropMenu value="Prédio" iconAwesome="building">
+			          <b:navLink value="Cadastrar Prédio" href="#{facesContext.externalContext.requestContextPath}/admin/predio/cadastrar.xhtml" iconAwesome="plus"></b:navLink>
+			          <b:navLink value="Consultar Prédio" href="#{facesContext.externalContext.requestContextPath}/admin/predio/consultar.xhtml" iconAwesome="list-alt"></b:navLink>
+			        </b:dropMenu>
+			        <b:dropMenu value="Sala" iconAwesome="building">
+			          <b:navLink value="Cadastrar Sala" href="#{facesContext.externalContext.requestContextPath}/admin/sala/cadastrar.xhtml" iconAwesome="plus"></b:navLink>
+			          <b:navLink value="Consultar Sala" href="#{facesContext.externalContext.requestContextPath}/admin/sala/consultar.xhtml" iconAwesome="list-alt"></b:navLink>
+			        </b:dropMenu>
+			        <b:dropMenu value="Unidade" iconAwesome="id-card">
+			          <b:navLink value="Cadastrar Unidade" href="#{facesContext.externalContext.requestContextPath}/admin/unidade/cadastrar.xhtml" iconAwesome="plus"></b:navLink>
+			          <b:navLink value="Consultar Unidade" href="#{facesContext.externalContext.requestContextPath}/admin/unidade/consultar.xhtml" iconAwesome="list-alt"></b:navLink>
+			        </b:dropMenu>
+			        <sec:authorize access="hasAnyRole('ADMINISTRADOR', 'GESTOR_SETOR')">
+				        <b:dropMenu value="Gerenciar Usuários" iconAwesome="users"> 
+					          <b:navLink value="Cadastrar Usuário" href="#{facesContext.externalContext.requestContextPath}/usuario/gerenciamento/cadastrar.xhtml" iconAwesome="plus"></b:navLink>
+					          <b:navLink value="Consultar Usuário" href="#{facesContext.externalContext.requestContextPath}/usuario/gerenciamento/consultar.xhtml" iconAwesome="list-alt"></b:navLink>
+				        </b:dropMenu>
+			        </sec:authorize>
+      			</b:dropMenu>
+      			
+      			<sec:authorize access="hasRole('ADMINISTRADOR')">
+      			 <b:dropMenu value="Gerenciar Importações">  			 
+			          <b:navLink value="Importar Setores" href="#{facesContext.externalContext.requestContextPath}/admin/importacao/importarSetor" iconAwesome="plus"></b:navLink>
+			          <b:navLink value="Importar Pessoas" href="#{facesContext.externalContext.requestContextPath}/admin/importacao/importarPessoa" iconAwesome="list-alt"></b:navLink>
+			          <b:navLink value="Importar Localizações de Pessoas" href="#{facesContext.externalContext.requestContextPath}/admin/importacao/importarLocalizacoesPessoa" iconAwesome="list-alt"></b:navLink>
+      			 </b:dropMenu>
+      			 </sec:authorize>
+			</b:navbarLinks>
+		</h:form>
+		<h:form>
+			<b:navbarLinks pull="right">
+				<b:dropButton value="#{recuperaUsuarioLogado.login}"
+					iconAwesome="user">
+					<!-- <b:navLink value="Editar"
+						href="/sistemacartorial/pages/usuarios/novo.jsf"
+						iconAwesome="edit" /> -->
+					<b:navCommandLink value="Alterar dados pessoais" iconAwesome="edit" href="#{facesContext.externalContext.requestContextPath}/usuario/comum/editarDadosPessoais/#{recuperaUsuarioLogado.idPessoa}" />
+					<b:navCommandLink value="Alterar Senha" iconAwesome="edit" href="#{facesContext.externalContext.requestContextPath}/usuario/comum/alterarSenha/#{recuperaUsuarioLogado.idPessoa}"/>	
+					<b:navCommandLink value="Sair" iconAwesome="close" href="#{facesContext.externalContext.requestContextPath}/logout" />
+				</b:dropButton>
+			</b:navbarLinks>
+		</h:form>
+	</b:navBar>
+   
+</html>

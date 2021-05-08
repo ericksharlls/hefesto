@@ -1,0 +1,154 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:c="http://java.sun.com/jstl/core">
+	
+<h:head>
+    <link rel="stylesheet" type="text/css" href="#{facesContext.externalContext.requestContextPath}/estilo/css/styles.css" />
+</h:head>	
+
+<ui:composition template="/template/interface-nova/template.xhtml">
+
+	<ui:define name="header">
+		<title>Consulta de Serviço</title>
+	</ui:define>
+
+	<ui:define name="conteudo">
+		<div id="loader" class="load-bar" style="display: none">
+			<div class="bar"></div>
+			<div class="bar"></div>
+			<div class="bar"></div>
+		</div>
+
+		<h6 style="margin: 20px 0px 0px 10px">
+			<a href="/hefesto/index.jsf"
+				style="color: blue !important">Início</a> / <a href="consultar.xhtml" style="color:blue !important"> Tipos de Serviço</a> / Consultar Tipo de Serviço
+		</h6>
+		<div class="ui-g-12">
+			<div class="ui-g-2"></div>
+			<div class="login-box w3-card ui-g-8" style="margin-top: 30px;">
+				<div class="box login-box-body">
+				<legend style="text-align: center;">Listar tipos de Serviço</legend>
+					<h:form id="consultarTipoServicoForm">
+						<div class="form-group has-feedback ui-g-12">
+							<b:inputText id="nome" label="Serviço:" large-screen='two-thirds' placeholder="Insira o nome do serviço" value="#{consultarTipoServicoFormBean.consultarTipoServico.nome}">
+									<f:facet name="prepend">
+										<b:button look="default" iconAwesome="wrench" />
+									</f:facet>
+							</b:inputText>
+						</div>	
+						<div>	
+							<br />
+							<br />	
+							<b:commandButton value="Consultar" action="#{consultarTipoServicoFormBean.consultar}" icon="search" look="success" style="margin-left:23px" />
+							<br />
+							<br />
+						</div>
+						
+						<p:dialog header="Excluir Tipo de Serviço"
+							widgetVar="dialogExcluirTipoServico" modal="true" height="300"
+							width="400" resizable="false">
+							<p:outputPanel id="excluirTipoServicoDetalhes" class="pop-up-output-panel-delete">
+								<h:panelGrid columns="2" cellpadding="5">
+									<h:outputLabel for="nomeExluir" value="Nome:" />
+									<h:outputText
+										value="#{consultarTipoServicoFormBean.tipoServicoModelSelecionado.nome}"
+										id="nomeExcluir" />
+
+									<h:outputLabel for="descricaoExcluir" value="Descrição:" />
+									<h:outputText
+										value="#{consultarTipoServicoFormBean.tipoServicoModelSelecionado.descricao}"
+										id="descricaoExcluir" />
+
+									<f:facet name="footer">
+										<b:commandButton value="Excluir" class="pop-up-button-delete"
+											look="danger" icon="trash" action="#{consultarTipoServicoFormBean.excluir}" />
+									</f:facet>
+
+								</h:panelGrid>
+							</p:outputPanel>
+						</p:dialog>
+
+						<p:dialog header="Editar Tipo de Serviço"
+							widgetVar="dialogEditarTipoServico" modal="true" height="400"
+							width="450" resizable="false">
+							<p:outputPanel id="editarTipoServicoDetalhes" class="pop-up-output-panel-edit">
+								<p:outputLabel value="Tipo de Serviço Pai: " for="pai" />
+								<br/>
+								<h:selectOneMenu id="pai" value="#{consultarTipoServicoFormBean.tipoServicoModelSelecionado.idTipoServicoPai}">
+									<f:selectItem itemLabel="Selecione um Tipo de Serviço" itemValue="0" />
+									<f:selectItems value="#{popularComboTipoServicoFormBean.retornaTiposServicoPai()}" var="pai"
+													itemLabel="#{pai.nome}"
+													itemValue="#{pai.id}"/>
+									
+								</h:selectOneMenu>
+								<br/><br/>
+								<h:panelGrid columns="2" cellpadding="5">
+									
+									<h:outputLabel for="nomeEditar" value="Nome:" />
+									<b:inputText value="#{consultarTipoServicoFormBean.tipoServicoModelSelecionado.nome}" id="nomeEditar" maxlength="45" />
+
+									<h:outputLabel for="descricaoEditar" value="Descrição:"/>
+									<b:inputTextarea value="#{consultarTipoServicoFormBean.tipoServicoModelSelecionado.descricao}" id="descricaoEditar" maxlength="70" />
+
+									<f:facet name="footer">
+										<b:commandButton value="Editar" class="pop-up-button-edit"
+											look="success" icon="pencil" action="#{consultarTipoServicoFormBean.editar}" />
+									</f:facet>
+
+								</h:panelGrid>
+							</p:outputPanel>
+						</p:dialog>
+
+						<p:dataTable id="tipoServicoTable" paginator="true" rows="10"
+							lazy="true" paginatorAlwaysVisible="false"
+							paginatorPosition="bottom" var="tipoServico"
+							value="#{consultarTipoServicoFormBean.lazyTipoServico}"
+							emptyMessage="Nenhum Tipo Serviço Encontrado">
+							<f:facet name="header">
+							Lista de Tipos de Serviço
+						</f:facet>
+							<p:column headerText="Nome" class="data-table-align-text">
+								<h:outputText value="#{tipoServico.nome}" />
+							</p:column>
+							<p:column headerText="Código" class="data-table-align-text">
+								<h:outputText value="#{tipoServico.codigo}" />
+							</p:column>
+							<p:column headerText="Descrição" class="data-table-align-text">
+								<h:outputText value="#{tipoServico.descricao}" />
+							</p:column>
+							<p:column headerText="Tipo Serviço Pai" class="data-table-align-text">
+								<h:outputText value="#{tipoServico.tipoServicoPai}" />
+							</p:column>
+							<p:column headerText="Operações">
+								<p:commandLink id="linkEditarTipoServico"
+									update=":consultarTipoServicoForm:editarTipoServicoDetalhes"
+									oncomplete="PF('dialogEditarTipoServico').show();"
+									action="#{consultarTipoServicoFormBean.setTipoServicoModelSelecionado(tipoServico)}"
+									style="margin-left:37%">
+									<b:button iconAwesome="edit" look="primary" tooltip="Editar"/>
+								</p:commandLink>
+								<h:outputText value=" " />
+								<p:commandLink id="linkExcluirTipoServico"
+									update=":consultarTipoServicoForm:excluirTipoServicoDetalhes"
+									oncomplete="PF('dialogExcluirTipoServico').show();"
+									action="#{consultarTipoServicoFormBean.setTipoServicoModelSelecionado(tipoServico)}">
+									<b:button iconAwesome="trash" look="danger" tooltip="Excluir"/>
+								</p:commandLink>
+							</p:column>
+						</p:dataTable>
+
+					</h:form>
+				</div>
+			</div>
+		</div>
+
+	</ui:define>
+
+</ui:composition>
+</html>

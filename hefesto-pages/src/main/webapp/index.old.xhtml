@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:sec="http://www.springframework.org/security/tags">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Bem-vindo!</title>
+</h:head>
+<h:body>
+	<ui:composition template="/template/layout.xhtml">
+		<ui:define name="content">
+			<div class="container "  >
+			
+				<br />
+				<br />
+				<div class="py-5 text-center">
+				<h2></h2>
+				</div>
+				
+				<sec:authorize access="hasRole('ADMINISTRADOR')">
+					<h3>Bem-vindo, Administrador.</h3>
+				</sec:authorize>
+				
+				<sec:authorize access="hasRole('GESTOR_SETOR')">
+					<h3>Bem-vindo, Supervisor.</h3>
+				</sec:authorize>
+				
+				<br />
+				<br />
+				<br />
+				<br />
+				
+				
+			
+			</div>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

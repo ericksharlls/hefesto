@@ -1,0 +1,24 @@
+
+.errorMessage {
+	background-image: url(/hefesto/estilo/images/imagens-novas/exclamation-circle-20.png);
+	background-position: left center;
+	background-repeat: no-repeat;
+	margin-top: 8px;
+	text-align: left;
+	text-indent: 30px;
+	list-style: none;
+	font-weight: bold;
+	color: #534741;
+}
+
+.sucessMessage {
+	background-image: url(/hefesto/estilo/images/imagens-novas/check-circle-20.png);
+	background-position: left center;
+	background-repeat: no-repeat;
+	margin-top: 8px;
+	text-align: left;
+	text-indent: 30px;
+	list-style: none;
+	font-weight: bold;
+	color: #414853;
+}

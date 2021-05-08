@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:c="http://java.sun.com/jstl/core">
+	
+
+<ui:composition template="/template/interface-nova/template.xhtml">
+
+<ui:define name="header">
+	<title>Cadastrar Tipo de Serviço</title>
+</ui:define>
+
+<ui:define name="conteudo">
+	
+	<div id="loader" class="load-bar" style="display: none">
+		<div class="bar"></div>
+		<div class="bar"></div>
+		<div class="bar"></div>
+	</div>
+		
+	<h6 style="margin: 20px 0px 0px 10px">
+		<a href="/hefesto/index.jsf"
+			style="color: blue !important">Início</a> /<a href="consultar.xhtml" style="color:blue !important"> Tipos de Serviço</a> / Cadastrar Tipo de Serviço
+	</h6>
+	
+	<div class="ui-g-12">
+		<div class="ui-g-3"></div>
+			<div class="login-box w3-card ui-g-6" style="margin-top: 30px;">
+				<div class="box login-box-body" style="backgroung">
+					<h:form>
+					<p:inputText styleClass="" id="hidden-element" style="visibility:hidden"/>
+					<legend style="text-align: center">Cadastrar Tipo de Serviço</legend>
+						<h:outputLabel value="* Campo Obrigatório" class="campo-obrigatorio" style="margin-left:15px"/>
+						<br/>
+						<div class="form-group has-feedback ui-g-12">
+						<p:outputLabel value="Tipo de Serviço Pai: " for="pai" />
+						<br/>
+						<h:selectOneMenu id="pai" value="#{cadastrarTipoServicoFormBean.cadastrarTipoServico.idTipoServicoPai}">
+							<f:selectItem itemLabel="Selecione um Tipo de Serviço" itemValue="0" />
+							<f:selectItems value="#{popularComboTipoServicoFormBean.retornaTiposServicoPai()}" var="pai"
+											itemLabel="#{pai.nome}"
+											itemValue="#{pai.id}"/>
+							
+						</h:selectOneMenu>
+						
+						</div>
+						<div class="form-group has-feedback ui-g-12">
+							<h:outputLabel value="Nome *" for="nome" />
+							<h:outputText value=" (Máximo de 45 caracteres)" styleClass="mensagemLimiteCaracteresField" />
+							<br/>
+							<b:inputText id="nome" large-screen='two-thirds' placeholder="Insira o nome do serviço" maxlength="45" value="#{cadastrarTipoServicoFormBean.cadastrarTipoServico.nome}">
+									<f:facet name="prepend">
+										<b:button look="default" iconAwesome="wrench" />
+									</f:facet>
+							</b:inputText>
+						</div>	
+						<div class="form-group has-feedback ui-g-12">
+							<h:outputLabel value="Descrição *" for="descricao" />
+							<h:outputText value=" (Máximo de 70 caracteres)" styleClass="mensagemLimiteCaracteresField" />
+							<br />
+							<b:inputTextarea rows="3" cols="23" id="descricao" maxlength="70" value="#{cadastrarTipoServicoFormBean.cadastrarTipoServico.descricao}" />
+						</div>
+							    
+						<div>
+							<b:commandButton value="Cadastrar" look="success" large-screen="half" action="#{cadastrarTipoServicoFormBean.cadastrar}" style="height:50px" />
+							<b:commandButton value="Cancelar" look="danger" large-screen="half"  action="pretty:consultarTipoServicoPage" style="height:50px"/>
+						</div>
+						
+						
+					</h:form>
+				</div>
+			</div>
+		<div class="ui-g-3"></div>	
+	</div>
+
+
+</ui:define>
+
+</ui:composition>
+</html>

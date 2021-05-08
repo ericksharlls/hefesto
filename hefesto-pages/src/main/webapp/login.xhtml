@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>HEFESTO - LOGIN</title>
+
+	<!-- Estilos customizados para esse template -->
+	<link rel="stylesheet" type="text/css"
+		href="#{facesContext.externalContext.requestContextPath}/estilo/css/signin.css" />
+	<link
+		href="#{facesContext.externalContext.requestContextPath}/resources/css/font-awesome.min.css"
+		rel="stylesheet" type="text/css" />
+	<!-- Font-Awesome-Icons-CSS -->
+	<!-- //css files -->
+	<!-- web-fonts -->
+	<link
+		href="//fonts.googleapis.com/css?family=Magra:400,700&amp;subset=latin-ext"
+		rel="stylesheet" />
+	<!-- //web-fonts -->
+</h:head>
+
+<h:body id="background-login">
+	<form class="form-signin"
+		action="#{facesContext.externalContext.requestContextPath}/login"
+		method="post">
+
+		<c:if test="${param.error != null}">
+			<div role="alert">
+				<b:alert severity="danger">
+					<strong>Falha ao fazer Login!</strong>
+					<c:if test="${SPRING_SECURITY_LAST_EXCEPTION != null}">
+               		Motivo: ${SPRING_SECURITY_LAST_EXCEPTION.message}
+                </c:if>
+				</b:alert>
+			</div>
+		</c:if>
+		<div id="box-insider">
+			<div class="imgcontainer">
+				<img id="logo-sistema-login"
+					src="#{facesContext.externalContext.requestContextPath}/estilo/images/LogoHefesto_larger_blue.png"
+					alt="logoHefesto"></img> <br /> <br /> <br />
+			</div>
+			<div class="box loginBox">
+				<form class="form" action="#" method="post">
+					<div class="f_row-2">
+						<input type="text" class="input-field" placeholder="Usuário"
+							name="username" />
+					</div>
+					<div class="f_row-2 last">
+						<input type="password" name="password" placeholder="Senha"
+							class="input-field" />
+					</div>
+					<input class="submit-w3" type="submit" value="Login" />
+				</form>
+			</div>
+			<div class="footer-login" style="margin-top: 91px">
+				<img id="logo-footer"
+					src="#{facesContext.externalContext.requestContextPath}/estilo/images/logo_ct_negativa_v2.png"
+					alt="logoCtFooter"></img>
+				<p class="footer-login">© 2020 - Desenvolvido por Pitágoras Team</p>
+			</div>
+		</div>
+	</form>
+</h:body>
+</html>

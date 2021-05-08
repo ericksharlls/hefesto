@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:sec="http://www.springframework.org/security/tags"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+<ui:composition>
+	<h:head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+		<meta name="description" content="" />
+		<meta name="author" content="" />
+	</h:head>
+	<h:form>
+		<p:growl>
+        	<p:autoUpdate />
+    	</p:growl>
+    	<p:commandButton value="HOME" url="/index.xhtml"/>
+		<p:panelMenu style="width:15vw">
+        <p:submenu label="CHAMADOS">
+            <sec:authorize access="hasRole('GESTOR_SETOR')">
+                <p:menuitem value="CADASTRAR CHAMADO" action="/chamado/atendimento/cadastrar"  ajax="false"/>
+            </sec:authorize>
+            <p:menuitem value="CONSULTAR CHAMADO" url="/chamado/comum/consultar"/>
+            <sec:authorize access="hasRole('GESTOR_SETOR')">
+                    <p:menuitem value="FINALIZAR CHAMADO" url="/chamado/atendimento/finalizar"/>
+            </sec:authorize>    
+        </p:submenu>
+        <p:separator />
+        <p:submenu label="GERENCIAR PESSOAS">
+            <p:menuitem value="CADASTRAR PESSOA" action="/admin/pessoa/cadastrar"  ajax="false"/>
+            <p:menuitem value="CONSULTAR PESSOA" action="/admin/pessoa/consultar"  ajax="false"/>
+        </p:submenu>
+        <p:submenu label="GERENCIAR CADASTROS" >
+            <p:submenu label="TIPO DE SERVIÇO">
+                <sec:authorize access="hasRole('GESTOR_SETOR')">
+                    <p:menuitem value="CADASTRAR TIPO DE SERVIÇO" url="/admin/tipoServico/cadastrar"/>
+                </sec:authorize>
+                <p:menuitem value="CONSULTAR TIPO DE SERVIÇO" url="/admin/tipoServico/consultar"/>
+            </p:submenu>
+            <p:submenu label="PRÉDIO">
+                <p:menuitem value="CADASTRAR PRÉDIO" url="/admin/predio/cadastrar"/>
+                <p:menuitem value="CONSULTAR PRÉDIO" url="/admin/predio/consultar"/>
+            </p:submenu>
+            <p:submenu label="SETOR">
+                <p:menuitem value="CADASTRAR SETOR" url="/admin/setor/cadastrar"/>
+                <p:menuitem value="CONSULTAR SETOR" url="/admin/setor/consultar"/>
+            </p:submenu>
+             <p:submenu label="SALA">
+                <p:menuitem value="CADASTRAR SALA" url="/admin/sala/cadastrar"/>
+                <p:menuitem value="CONSULTAR SALA" url="/admin/sala/consultar"/>
+            </p:submenu>
+        </p:submenu>
+        <p:submenu label="GERENCIAR USUÁRIOS">
+                <sec:authorize access="hasRole('ADMINISTRADOR')">
+                    <p:menuitem value="CADASTRAR USUÁRIOS" url="/usuario/gerenciamento/cadastrar"/>
+                    <p:menuitem value="CONSULTAR USUÁRIOS" url="/usuario/gerenciamento/consultar"/>
+                </sec:authorize>
+                <p:menuitem value="LOGOUT" url="/logout"/>
+    	</p:submenu>
+    	<p:submenu label="GERENCIAR IMPORTAÇÕES">
+    		<p:menuitem value="IMPORTAR SETORES" url="/admin/importacao/importarSetor"/>
+    		<p:menuitem value="IMPORTAR PESSOAS" url="/admin/importacao/importarPessoa"/>
+    	</p:submenu>
+    </p:panelMenu>  
+	</h:form>
+</ui:composition>
+</h:body>
+</html>

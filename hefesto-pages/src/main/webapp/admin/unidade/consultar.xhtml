@@ -1,0 +1,177 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" 
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:sec="http://www.springframework.org/security/tags"
+	xmlns:c="http://java.sun.com/jstl/core">
+
+
+<ui:composition template="/template/interface-nova/template.xhtml">
+
+	<ui:define name="header">
+		<title>Consultar Unidade</title>
+	</ui:define>
+
+	<ui:define name="conteudo">
+
+		<div id="loader" class="load-bar" style="display: none">
+			<div class="bar"></div>
+			<div class="bar"></div>
+			<div class="bar"></div>
+		</div>
+
+		<h6 style="margin: 20px 0px 0px 10px">
+			<a href="/hefesto/index.jsf"
+				style="color: blue !important">Início</a> / <a href="consultar.xhtml" style="color:blue !important">Unidade</a>  / Consultar Unidade
+		</h6>
+
+		<div class="ui-g-12">
+			<div class="ui-g-3"></div>
+			<div class="login-box w3-card ui-g-6" style="margin-top: 30px;">
+				<div class="box login-box-body">
+					<h:form id="consultarUnidadeForm">
+						<legend style="text-align: center;">Consultar Unidade</legend>
+
+						<div class="form-group has-feedback ui-g-12">
+							<b:inputText id="nome" label="Nome: " large-screen='two-thirds' placeholder="Insira o nome da unidade" value="#{consultarUnidadeFormBean.consultarUnidade.nome}">
+									<f:facet name="prepend">
+										<b:button look="default" iconAwesome="id-card" />
+									</f:facet>
+							</b:inputText>
+						</div>
+						<div class="form-group has-feedback ui-g-12">
+							<div class="form-group has-feedback ui-g-6">
+								<label for="codigo" class="">Código:</label>
+								<br />
+								<h:inputText styleClass="" id="codigo" value="#{consultarUnidadeFormBean.consultarUnidade.codigo}" />
+							</div>
+						</div>	
+						<div class="form-group has-feedback ui-g-12">
+							<div class="form-group has-feedback ui-g-6">
+									<h:outputLabel value="Listar as unidades de custo? *" for="isUnidadeCusto"/>
+									<br />
+									<h:selectOneRadio value="#{consultarUnidadeFormBean.consultarUnidade.isUnidadeCusto}" id="isUnidadeCusto">
+        								<f:selectItem itemValue="#{true}" itemLabel="Sim" />
+        								<f:selectItem itemValue="#{false}" itemLabel="Não" />
+      								</h:selectOneRadio>
+							</div>
+						</div>
+						<br />
+						<br />	
+						<b:commandButton value="Consultar" action="#{consultarUnidadeFormBean.consultar}" icon="search" look="success" style="margin-left:23px" />
+						<br />
+						<br />
+
+						<p:dialog header="Excluir Unidade" widgetVar="dialogExcluirUnidade"
+							modal="true" height="400" width="500" resizable="false">
+							<p:outputPanel id="excluirUnidadeDetalhes" class="pop-up-output-panel-delete">
+								<h:panelGrid columns="2" cellpadding="5">
+									<h:outputLabel for="nomeExcluir" value="Nome:" />
+									<h:outputText
+										value="#{consultarUnidadeFormBean.unidadeModelSelecionada.nome}"
+										id="nomeExcluir" />
+
+									<h:outputLabel for="descricaoExcluir" value="Descrição:" />
+									<h:outputText
+										value="#{consultarUnidadeFormBean.unidadeModelSelecionada.descricao}"
+										id="descricaoExcluir" />
+
+									<br />
+
+									<f:facet name="footer">
+										<b:commandButton value="Excluir" class="pop-up-button-delete"
+											look="danger" icon="trash" action="#{consultarUnidadeFormBean.excluir}" />
+									</f:facet>
+								</h:panelGrid>
+							</p:outputPanel>
+						</p:dialog>
+
+						<p:dialog header="Editar Unidade" widgetVar="dialogEditarUnidade"
+							modal="true" height="400" width="500" resizable="false">
+							<p:outputPanel id="editarUnidadeDetalhes" class="pop-up-output-panel-edit">
+								<h:panelGrid columns="2" cellpadding="5">
+									<h:outputLabel for="nomeEditar" value="Nome:" />
+									<b:inputText
+										value="#{consultarUnidadeFormBean.unidadeModelSelecionada.nome}"
+										id="nomeEditar" />
+
+									<h:outputLabel for="descricaoEditar" value="Descrição:" />
+									<b:inputTextarea
+										value="#{consultarUnidadeFormBean.unidadeModelSelecionada.descricao}"
+									    id="descricaoEditar" rows="6" />
+									
+									<sec:authorize access="hasRole('ADMINISTRADOR')">
+										<h:outputLabel for="fazAtendimentoEditar"
+											value="Faz Atendimento:" />
+										<h:selectOneRadio value="#{consultarUnidadeFormBean.unidadeModelSelecionada.fazAtendimento}" id="fazAtendimentoEditar">
+        									<f:selectItem itemValue="#{true}" itemLabel="Sim" />
+        									<f:selectItem itemValue="#{false}" itemLabel="Não" />
+      									</h:selectOneRadio>
+											
+									</sec:authorize>
+									
+									<h:outputLabel for="isUnidadeCustoEditar"
+											value="É uma unidade de custo?" />
+									<h:selectOneRadio value="#{consultarUnidadeFormBean.unidadeModelSelecionada.isUnidadeCusto}" id="isUnidadeCustoEditar">
+        								<f:selectItem itemValue="#{true}" itemLabel="Sim" />
+        								<f:selectItem itemValue="#{false}" itemLabel="Não" />
+      								</h:selectOneRadio>
+
+									<br />
+									<br />
+									
+									<f:facet name="footer">
+										<b:commandButton value="Editar" class="pop-up-button-edit"
+											look="success" icon="pencil"  action="#{consultarUnidadeFormBean.editar}" />
+									</f:facet>
+
+								</h:panelGrid>
+							</p:outputPanel>
+						</p:dialog>
+
+						<p:dataTable id="setorTable" paginator="true" rows="10" lazy="true" paginatorAlwaysVisible="false" 
+							paginatorPosition="bottom" var="setor" value="#{consultarUnidadeFormBean.lazySetor}" emptyMessage="Nenhuma unidade encontrada">
+							<f:facet name="header">
+							Lista de Unidades
+						</f:facet>
+							<p:column headerText="Nome" class="data-table-align-text">
+								<h:outputText value="#{setor.nome}" />
+							</p:column>
+							<p:column headerText="Código" class="data-table-align-text">
+								<h:outputText value="#{setor.codigo}" />
+							</p:column>
+							<p:column headerText="É unidade de custo?" class="data-table-align-text">
+								<h:outputText rendered="#{setor.isUnidadeCusto == true}" value="Sim" />  
+								<h:outputText rendered="#{setor.isUnidadeCusto == false}" value="Não" />  
+							</p:column>
+							<p:column headerText="Operações">
+								<p:commandLink id="linkEditarSetor"
+									update=":consultarUnidadeForm:editarUnidadeDetalhes"
+									oncomplete="PF('dialogEditarUnidade').show();"
+									action="#{consultarUnidadeFormBean.setUnidadeModelSelecionada(setor)}"
+									style="margin-left:37%">
+									<b:button iconAwesome="edit" look="primary" tooltip="Editar"/>
+								</p:commandLink>
+								<h:outputText value=" " />
+								<p:commandLink id="linkExcluirSetor"
+									update=":consultarUnidadeForm:excluirUnidadeDetalhes"
+									oncomplete="PF('dialogExcluirUnidade').show();"
+									action="#{consultarUnidadeFormBean.setUnidadeModelSelecionada(setor)}">
+									<b:button iconAwesome="trash" look="danger" tooltip="Excluir"/>
+								</p:commandLink>
+							</p:column>
+						</p:dataTable>
+					</h:form>
+				</div>
+			</div>
+		</div>
+
+
+	</ui:define>
+
+</ui:composition>
+</html>
