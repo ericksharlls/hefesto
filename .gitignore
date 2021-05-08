@@ -15,7 +15,8 @@ local.properties
 .recommenders
 
 # JDT-specific (Eclipse Java Development Tools)     
-.classpath
+**/.classpath
+**/.project
 
 # External tool builders
 .externalToolBuilders/
