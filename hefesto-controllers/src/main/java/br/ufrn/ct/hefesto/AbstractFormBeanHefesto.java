@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import br.ufrn.ct.hefesto.controller.RecuperaUsuarioLogado;
 import dev.modulo.web.AbstractFormBean;
 
-public abstract class AbstractFormBeanHefesto extends AbstractFormBean{
+public abstract class AbstractFormBeanHefesto extends AbstractFormBean {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -25,13 +25,11 @@ public abstract class AbstractFormBeanHefesto extends AbstractFormBean{
 
 	@Override
 	protected String getMessagesPropertiesFilePath() {
-		
 		return "br/ufrn/ct/hefesto/messages/ErrorMessages";
 	}
 	
 	@Override
 	protected String getParametersPropertiesFilePath() {
-		
 		return "br/ufrn/ct/hefesto/parameters/Parameters";
 	}
 
