@@ -11,8 +11,8 @@ import br.ufrn.ct.hefesto.model.PapelModel;
 import br.ufrn.ct.hefesto.model.request.consultarpapelporusuario.ConsultarPapelPorUsuario;
 import br.ufrn.ct.hefesto.persistence.dao.PapelDao;
 import br.ufrn.ct.hefesto.persistence.entity.Papel;
-import dev.modulo.service.exception.NegocioException;
 import dev.modulo.service.interfaces.IServiceConsultar;
+import dev.modulo.service.exception.NegocioException;
 
 @Service("ConsultarPapelPorUsuario")
 public class ServiceConsultarPapelPorUsuario implements IServiceConsultar<PapelModel, ConsultarPapelPorUsuario>{
