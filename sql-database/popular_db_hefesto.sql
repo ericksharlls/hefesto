@@ -1,23 +1,24 @@
-USE webhefesto ;
--- -----------------------------------------------------
--- Table `webhefesto`.`tipo_pessoa`
--- -----------------------------------------------------
-INSERT INTO tipo_pessoa VALUES 
-(1,'Docente','Pessoa que é um docente'),
-(2,'Tecnico-Administrativo','Pessoa que é um técnico administrativo'),
-(3,'Terceirizado','Pessoa terceirizada'),
-(4,'Bolsista','Aluno bolsista');
+use webhefesto;
 
 -- -----------------------------------------------------
--- Table `webhefesto`.`predio
+-- Table `hefesto_db`.`tipo_pessoa`
 -- -----------------------------------------------------
-INSERT INTO webhefesto.predio (nome, descricao)
+INSERT INTO tipo_pessoa VALUES 
+(1,'Tecnico-Administrativo','Pessoa que é um técnico administrativo'),
+(2,'Discente','Pessoa que é um discente'),
+(3,'Docente','Pessoa que é um docente'),
+(4,'Terceirizado','Pessoa que é um terceirizado');
+
+-- -----------------------------------------------------
+-- Table `hefesto_db`.`predio
+-- -----------------------------------------------------
+INSERT INTO hefesto_db.predio (nome, descricao)
 VALUES('CT','Centro de Tecnologia'), ('CTEC','Complexo Tecnológico de Engenharia'), ('Setor IV','Setor de aulas IV');
 
 -- -----------------------------------------------------
--- Table `webhefesto`.`setor`
+-- Table `hefesto_db`.`setor`
 -- -----------------------------------------------------
-INSERT INTO `webhefesto`.`setor`(`codigo`,`nome`,`descricao`,`id_predio`, faz_atendimento)
+INSERT INTO `hefesto_db`.`setor`(`codigo`,`nome`,`descricao`,`id_predio`, faz_atendimento)
 VALUES
 ('101','Departamento de TI','Departamento de Tecnologia da Informação',1,true),
 ('102','Infraestrutura','Departamento de Infraestrutura',1,true), 
@@ -26,19 +27,25 @@ VALUES
 (null,'Secretaria','Secreatria',3,false);
 
 -- -----------------------------------------------------
--- Table `webhefesto`.`tipo_servico`
+-- Table `hefesto_db`.`tipo_servico`
 -- -----------------------------------------------------
 INSERT INTO tipo_servico VALUES 
 (1, '01', 'Ponto de rede', 'Conserto de ponto', 1),
 (2, '01', 'Troca de lâmpada', 'Conserto de lâmpada', 2);
 
 -- -----------------------------------------------------
--- Table `webhefesto`.`pessoa`
+-- Table `hefesto_db`.`pessoa`
 -- -----------------------------------------------------
-INSERT INTO pessoa (id_setor_lotacao, id_setor_localizacao, nome, email, numero_documento, telefone, data_nascimento, id_tipo_pessoa) VALUES 
-(1,1,'Admin do hefesto', 'admin@ct.ufrn.br', '01254120164', '84995687451', '2002-05-25',1),
-(1,1,'Gestor de TI', 'ti@ct.ufrn.br', '01254120164', '84995687451', '2002-05-25',1),
-(2,2,'Gestor de INFRA', 'ti@ct.ufrn.br', '01254120164', '84995687451', '2002-05-25',1);
+INSERT INTO pessoa (id_setor, nome, email, numero_documento, telefone, data_nascimento, id_tipo_pessoa) VALUES 
+(1,'Admin do hefesto', 'admin@ct.ufrn.br', '01254120164', '84995687451', '2002-05-25',1),
+(1,'Gestor de TI', 'ti@ct.ufrn.br', '01254120164', '84995687451', '2002-05-25',1),
+(2,'Gestor de INFRA', 'ti@ct.ufrn.br', '01254120164', '84995687451', '2002-05-25',1),
+(1,'Severino', 'sev@ct.ufrn.br', '0125353454', '84954357451', '2002-05-25',2),
+(1,'Francisco', 'chico@ct.ufrn.br', '0125353454', '84954357451', '2002-05-25',3),
+(2,'Pedro', 'sev@ct.ufrn.br', '0125353454', '84954357451', '2002-05-25',4),
+(2,'Chico', 'chico@ct.ufrn.br', '0125353454', '84954357451', '2002-05-25',2),
+(4,'Paulo', 'sev@ct.ufrn.br', '0125353454', '84954357451', '2002-05-25',3),
+(3,'Enzo', 'chico@ct.ufrn.br', '0125353454', '84954357451', '2002-05-25',4);
 
 
 -- -----------------------------------------------------
