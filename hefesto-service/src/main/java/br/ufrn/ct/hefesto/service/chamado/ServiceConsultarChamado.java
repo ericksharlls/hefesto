@@ -62,7 +62,7 @@ public class ServiceConsultarChamado implements IServiceConsultarPaginado<Chamad
 			model.setIdSetor(chamado.getUnidade().getId());
 			//model.setSetor(chamado.getSetor().getNome());
 			//model.setSetor(chamado.getSetor().getDescricao());
-			model.setSetor(chamado.getUnidade().getDescricao());
+			model.setSetor(chamado.getSala().getNome() + " | " + chamado.getSala().getPredio().getNome());
 			
 			//Predio predio = predioDao.getById(chamado.getSetor().getPredio().getId());
 			//model.setPredio(predio.getNome());
