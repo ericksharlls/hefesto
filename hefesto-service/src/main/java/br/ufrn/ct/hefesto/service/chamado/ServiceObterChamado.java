@@ -55,6 +55,9 @@ public class ServiceObterChamado implements IServiceObter<ChamadoModel, ObterCha
 		//model.setIdPredio(predio.getId());
 		//model.setPredio(predio.getNome());
 		
+		model.setIdPredio(chamado.getSala().getPredio().getId());
+		model.setPredio(chamado.getSala().getPredio().getNome());
+		
 		model.setIdSolicitante(chamado.getSolicitante().getId());
 		model.setSolicitante(chamado.getSolicitante().getNome());
 		
