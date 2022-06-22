@@ -30,20 +30,11 @@ public class ChamadoDao extends AbstractDao<Long, Chamado>{
 				" ch.id_unidade = u.id_unidade AND ch.id_tipo_servico = t.id_tipo_servico AND " 
 				+ " YEAR(ch.data_abertura) = YEAR(CURDATE()) AND u.id_unidade = " + idSetor + " AND t.id_tipo_servico = " + idTipoServico + ")";
 		List<Object[]> rows = getSession().createSQLQuery(sql).list();
-		System.out.println("########" + rows.toString());
 		for(Object[] row : rows) {
 			retorno = new Chamado();
 			retorno.setId(Long.parseLong(row[0].toString()));
 			retorno.setCodigo(row[1].toString());
-			System.out.println("###### codigo: " + row[1].toString());
 		}
-		if(retorno==null) {
-			System.out.println("####### Objeto Vazio!!");
-		} else {
-			System.out.println("####### Objeto Com coteudo!!");
-		}
-		System.out.println("###### Chamado(DAO) idSetor e idTipoServico: " + idSetor + " - " + idTipoServico);
-		
 		return retorno;
 	}
 	

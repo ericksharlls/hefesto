@@ -90,13 +90,11 @@ public class ServiceCadastrarChamado implements IServiceVoid<CadastrarChamado>{
 		//System.out.println("#### Ultimo chamado: " + ultimo.getCodigo());
 
 		if(ultimo == null) {
-			System.out.println("###### no if");
 			String codigoTipoServico = this.tipoServicoDao.getById(tipoServico.getId()).getCodigo();
 			String sequence = "001";
 			
 			codigo = ano + codigoTipoServico + sequence;
 		}else {
-			System.out.println("###### no else");
 			codigo = ultimo.getCodigo();
 			Long aux = Long.parseLong(codigo) + 1;
 			codigo = Long.toString(aux);
