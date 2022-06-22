@@ -32,7 +32,7 @@ public class ServiceCadastrarChamado implements IServiceVoid<CadastrarChamado>{
 	@Autowired
 	private ChamadoDao chamadoDao;
 	@Autowired
-	private TipoServicoDao TipoServicoDao;
+	private TipoServicoDao tipoServicoDao;
 	@Autowired
 	private HistoricoChamadoDao historicoChamadoDao;
 	@Autowired
@@ -60,12 +60,6 @@ public class ServiceCadastrarChamado implements IServiceVoid<CadastrarChamado>{
 		Calendar cal = Calendar.getInstance();
 		chamado.setDataAbertura(cal);
 		
-		Unidade setor = new Unidade();
-		setor.setId(request.getIdSetor());
-		//setor.setPredio(predio);
-		//chamado.setSetor(setor);
-		chamado.setUnidade(setor);
-		
 		Sala sala = new Sala();
 		sala.setId(request.getIdSala());
 		chamado.setSala(sala);
@@ -86,14 +80,23 @@ public class ServiceCadastrarChamado implements IServiceVoid<CadastrarChamado>{
 		String ano = Integer.toString(cal.get(Calendar.YEAR));
 		Pessoa pessoaLogada = this.pessoaDao.getById(request.getIdPessoaLogada());
 		
+		Unidade setor = new Unidade();
+		setor.setId(pessoaLogada.getUnidadeLocalizacao().getId());
+		//setor.setPredio(predio);
+		//chamado.setSetor(setor);
+		chamado.setUnidade(setor);
+		
 		Chamado ultimo = this.chamadoDao.findLastByAnoSetorTipoServico(Integer.parseInt(ano), pessoaLogada.getUnidadeLocalizacao().getId(), request.getIdTipoServico());
+		//System.out.println("#### Ultimo chamado: " + ultimo.getCodigo());
 
 		if(ultimo == null) {
-			String codigoTipoServico = this.TipoServicoDao.getById(tipoServico.getId()).getCodigo();
+			System.out.println("###### no if");
+			String codigoTipoServico = this.tipoServicoDao.getById(tipoServico.getId()).getCodigo();
 			String sequence = "001";
 			
 			codigo = ano + codigoTipoServico + sequence;
 		}else {
+			System.out.println("###### no else");
 			codigo = ultimo.getCodigo();
 			Long aux = Long.parseLong(codigo) + 1;
 			codigo = Long.toString(aux);
