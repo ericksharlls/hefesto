@@ -34,7 +34,12 @@ public class setorConverter implements Converter {
 			} catch (NegocioException e) {
 				e.printStackTrace();
 				throw new ConverterException(new FacesMessage("Conversion Error", "Not a valid theme."));
+			} catch (NumberFormatException erro) {
+				erro.printStackTrace();
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "O campo Custo precisa ser válido.", "Erro de conversão"));
+				throw new ConverterException(new FacesMessage("Conversion Error", "Not a valid theme."));
 			}
+
 
 		} else {
 			return null;

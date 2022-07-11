@@ -47,6 +47,7 @@ public class ServiceCadastrarChamado implements IServiceVoid<CadastrarChamado>{
 	private static String ID_SOLICITANTE_VAZIO = "05.5";
 	private static String DESCRICAO_TAMANHO_EXCEDIDO = "05.7";
 	private static String OBSERVACOES_TAMANHO_EXCEDIDO = "05.8";
+	private static String NOME_INVALIDO = "05.9";
 	
 	@Transactional
 	public void executar(CadastrarChamado request) throws NegocioException {
@@ -154,6 +155,9 @@ public class ServiceCadastrarChamado implements IServiceVoid<CadastrarChamado>{
 		if (request.getIdSolicitante() == null || request.getIdSolicitante() == 0) {
 			throw new NegocioException(ID_SOLICITANTE_VAZIO);
 		}
+		/*if ( request.getIdSolicitante() == 0) {
+			throw new NumberFormatException(NOME_INVALIDO);
+		}*/
 	
 	}
 
