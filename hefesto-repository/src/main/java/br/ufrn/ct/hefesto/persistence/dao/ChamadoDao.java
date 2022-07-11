@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 
+import br.ufrn.ct.hefesto.persistence.entity.Atendimento;
 import br.ufrn.ct.hefesto.persistence.entity.Chamado;
 import dev.modulo.persistence.dao.AbstractDao;
 
@@ -12,6 +13,8 @@ import dev.modulo.persistence.dao.AbstractDao;
 public class ChamadoDao extends AbstractDao<Long, Chamado>{
 	@SuppressWarnings("unchecked")
 	public Chamado findLastByAnoSetorTipoServico(Integer ano, Long idSetor, Long idTipoServico) {
+		Chamado retorno = null;
+		/*
 		String sql = "	SELECT c "
 				+ "		FROM Chamado c "
 				+ "		WHERE c.id = (	SELECT MAX(c.id) "
@@ -21,10 +24,17 @@ public class ChamadoDao extends AbstractDao<Long, Chamado>{
 				+ "						WHERE YEAR(c.dataAbertura) = YEAR(CURDATE()) "
 				+ "							AND u.id = :idSetor "
 				+ "							AND t.id = :idTipoServico) ";
-		Query<Chamado> query = getSession().createQuery(sql);
-		query.setParameter("idSetor", idSetor);
-		query.setParameter("idTipoServico", idTipoServico);
-		Chamado retorno = query.uniqueResult();
+				*/
+		String sql = "SELECT c.* FROM chamado c WHERE c.id_chamado = ( SELECT MAX(ch.id_chamado) FROM chamado ch INNER JOIN unidade u INNER JOIN tipo_servico t " 
+				+ " WHERE "+
+				" ch.id_unidade = u.id_unidade AND ch.id_tipo_servico = t.id_tipo_servico AND " 
+				+ " YEAR(ch.data_abertura) = YEAR(CURDATE()) AND u.id_unidade = " + idSetor + " AND t.id_tipo_servico = " + idTipoServico + ")";
+		List<Object[]> rows = getSession().createSQLQuery(sql).list();
+		for(Object[] row : rows) {
+			retorno = new Chamado();
+			retorno.setId(Long.parseLong(row[0].toString()));
+			retorno.setCodigo(row[1].toString());
+		}
 		return retorno;
 	}
 	

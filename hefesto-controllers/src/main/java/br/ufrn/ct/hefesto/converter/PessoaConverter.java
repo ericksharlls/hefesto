@@ -34,6 +34,10 @@ public class PessoaConverter implements Converter {
 			} catch (NegocioException e) {
 				e.printStackTrace();
 				throw new ConverterException(new FacesMessage("Conversion Error", "Not a valid theme."));
+			} catch (NumberFormatException n) {
+				n.printStackTrace();
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "O campo Nome precisa ser um nome válido.", "Erro de conversão"));
+				throw new ConverterException(new FacesMessage("Conversion Error", "Not a valid theme."));
 			}
 
 		} else {

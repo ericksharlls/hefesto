@@ -10,6 +10,7 @@ public class TipoServicoModel extends AbstractModel{
 	private String nome;
 	private String codigo;
 	private String descricao;
+	private String setor;
 	private Long idTipoServicoPai;
 	private String tipoServicoPai;
 
@@ -72,4 +73,15 @@ public class TipoServicoModel extends AbstractModel{
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
 	}
+
+
+	public String getSetor() {
+		return setor;
+	}
+
+
+	public void setSetor(String setor) {
+		this.setor = setor;
+	}
+	
 }

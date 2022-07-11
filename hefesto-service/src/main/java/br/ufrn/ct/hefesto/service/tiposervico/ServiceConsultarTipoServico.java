@@ -38,6 +38,7 @@ public class ServiceConsultarTipoServico implements IServiceConsultarPaginado<Ti
 			model.setNome(tipoServico.getNome());
 			model.setIdTipoServicoPai(tipoServico.getTipoServicoPai() != null ? tipoServico.getTipoServicoPai().getId() : null);
 			model.setTipoServicoPai(tipoServico.getTipoServicoPai() != null ? tipoServico.getTipoServicoPai().getNome() : null);
+			model.setSetor(tipoServico.getUnidade().getNome());
 			retorno.add(model);
 		}
 		return retorno;
